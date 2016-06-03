@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2b679bd9-8f15-43ae-bcc6-72dcac760b1a" name="Default" comment="" />
+    <list default="true" id="2b679bd9-8f15-43ae-bcc6-72dcac760b1a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    </list>
     <ignored path="untitled.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,21 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="imdb_lstm.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/keras/examples/imdb_lstm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="31" column="52" selection-start-line="31" selection-start-column="52" selection-end-line="31" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleAutoencoder.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SimpleAutoencoder.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SimpleAutoencoder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+            <state relative-caret-position="108">
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -91,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fastaRecurrentAuto.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fastaRecurrentAuto.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fastaRecurrentAuto.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
+            <state relative-caret-position="252">
+              <caret line="101" column="46" selection-start-line="101" selection-start-column="46" selection-end-line="101" selection-end-column="46" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -148,13 +140,15 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/DoubleDigitCruncher.py" />
         <option value="$PROJECT_DIR$/First.py" />
         <option value="$USER_HOME$/keras/examples/imdb_lstm.py" />
-        <option value="$PROJECT_DIR$/SimpleAutoencoder.py" />
         <option value="$USER_HOME$/keras/examples/addition_rnn.py" />
         <option value="$PROJECT_DIR$/SuperEncoder.py" />
         <option value="$PROJECT_DIR$/ConvolutionalAuto.py" />
@@ -164,6 +158,7 @@
         <option value="$PROJECT_DIR$/ConvolutionalNet.py" />
         <option value="$PROJECT_DIR$/RecurrentAutoencoder.py" />
         <option value="$PROJECT_DIR$/fastaRecurrentAuto.py" />
+        <option value="$PROJECT_DIR$/SimpleAutoencoder.py" />
       </list>
     </option>
   </component>
@@ -219,7 +214,7 @@
     <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/keras/examples/addition_rnn.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -773,24 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SimpleAutoencoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/keras/examples/imdb_lstm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="31" column="52" selection-start-line="31" selection-start-column="52" selection-end-line="31" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ConvolutionalAuto.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
@@ -863,8 +840,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fastaRecurrentAuto.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
+        <state relative-caret-position="252">
+          <caret line="101" column="46" selection-start-line="101" selection-start-column="46" selection-end-line="101" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/keras/examples/imdb_lstm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="31" column="52" selection-start-line="31" selection-start-column="52" selection-end-line="31" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SimpleAutoencoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

@@ -155,7 +155,14 @@ l'identité). Pour éviter cela on dipose de plusieurs moyens:
   lumière des corrélations non évidentes à l'oeil nu.
 \item Poser des contraintes sur la représentation intermédiaire acquise
 \item Aléatoirement désactiver certains neurones, ce qui force le système à
-  introduire de la redondance (et donc à choisir ce qui est réellement important)
+  introduire de la redondance (et donc à choisir ce qui est réellement
+  important). C'est une technique aussi employée dans d'autres réseaux neuronaux
+  pour éviter de spécialiser le réseau sur l'ensemble d'entraînement et non sur
+  le domaine où on veut l'appliquer. Il est raisonnable qu'un auto-encodeur
+  entrainé sur des familles de protéines gére mal les chaînes purement
+  aléatoires, mais il serait problèmatique que cet auto-encodeur n'arrive pas à
+  traiter des protéines proches des exemples d'entraînement mais n'en faisant
+  pas partie. 
 \end{itemize}
 
 Une partie de notre travail s'est focalisée sur l'étude de ces représentations

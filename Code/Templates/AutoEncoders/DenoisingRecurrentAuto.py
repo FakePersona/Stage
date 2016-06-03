@@ -43,12 +43,7 @@ np.set_printoptions(threshold=np.nan)
 
 print("Generating data...")
 
-data = [[''.join(np.random.choice(list(chars))) for _ in range(9)] for _ in range(200000)]
-for l in data:
-    if l[0] == 'A':
-        l.append('B')
-    else:
-        l.append('C')
+data = [2 * [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(200000)]
 
 
 X = np.zeros((len(data), 10, len(chars)), dtype=np.bool)
@@ -56,13 +51,7 @@ X = np.zeros((len(data), 10, len(chars)), dtype=np.bool)
 for i, sentence in enumerate(data):
     X[i] = ctable.encode(sentence, maxlen=10)
 
-
-test = [[''.join(np.random.choice(list(chars))) for _ in range(9)] for _ in range(2000)]
-for l in test:
-    if l[0] == 'A':
-        l.append('B')
-    else:
-        l.append('C')
+test = [2 * [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(2000)]
 
 X_val = np.zeros((len(test), 10, len(chars)), dtype=np.bool)
 

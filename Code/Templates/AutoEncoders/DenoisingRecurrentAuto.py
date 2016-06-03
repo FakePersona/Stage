@@ -87,8 +87,6 @@ model.add(Activation('softmax'))
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
-get_summary = K.function([model.layers[0].input], [model.layers[0].output])
-
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
 for iteration in range(1, 200):
@@ -104,11 +102,9 @@ for iteration in range(1, 200):
         row = X_val[np.array([ind])]
         preds = model.predict_classes(row, verbose=0)
         correct = ctable.decode(row[0])
-        intermediate = get_summary([row])[0]
         guess = ctable.decode(preds[0], calc_argmax=False)
         print('T', correct)
         print('P', guess)
-        print('I', intermediate)
         print('---')
 
     beep = [''.join(np.random.choice(list(chars))) for _ in range(10)]

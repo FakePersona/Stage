@@ -48,8 +48,8 @@
       <file leaf-file-name="DenoisingRecurrentAuto.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/DenoisingRecurrentAuto.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="74" column="52" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
+            <state relative-caret-position="322">
+              <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -371,8 +371,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/DenoisingRecurrentAuto.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="74" column="52" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
+        <state relative-caret-position="322">
+          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

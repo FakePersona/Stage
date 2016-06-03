@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt]{article}
+\documentclass[a4paper,11pt, twocolumn]{article}
 \usepackage{a4wide}%
 
 \usepackage{tabularx}
@@ -81,7 +81,8 @@ nombreux domaines qui vont de la reconnaissance d'image à l'étude de langages
 naturels (\cite{DBLP:journals/corr/ChoMGBSB14}, \cite{socher2011semi}, \cite{NIPS2014_5346}). Néanmoins, les
 protéines demeurent un domaine relativement inexploré par l'apprentissage
 profond à l'exception de quelques travaux
-(\cite{Spencer:2015:DLN:2817095.2817106}).
+(\cite{Spencer:2015:DLN:2817095.2817106}) malgré un certain nombre de travaux
+sur l'expression des gènes (\cite{Gupta031906}).
 
 L'applications de techniques dévelloppées en langage naturels ou dans d'autres
 branches de la bioinformatiques permettent de faire des recoupement sémantiques,
@@ -104,7 +105,7 @@ algorithmes d'apprentissages profonds entraînés.
 
 Comme toutes les techniques d'apprentissage machine, l'apprentissage profond
 vise à entrainer un système pour qu'il résolve des situations sans que tous les
-paramètres nécessaires à la résolution du problème n'ait été calculés par
+paramètres nécessaires à la résolution du problème n'aient été calculés par
 l'implémentateur. Traditionellement, la façon de procéder serait d'utiliser par
 exemple un réseau de neurones pour faire un perceptron: il y a un couche entrée,
 une couche cachée et une couche sortie. Entre chaque couche une transformation
@@ -181,11 +182,11 @@ Typiquement on crée plusieurs \texttt{feature maps} en parrallèle dans un rés
 convolutionnel. Rappellons déjà que nous n'avons pas beaucoup de contrôle sur la
 caractèristique que le réseau va retrouver puisqu'il va apprendre la
 caractéristique qui donne le meilleur résultat par lui-même. Multiplier les
-\texttt{feature maps} permet de distinguer plus de points caractéristiques sui
+\texttt{feature maps} permet de distinguer plus de points caractéristiques qui
 seront ensuite traités par une couche supérieure.
 
 Si on veut rajouter une couche convolutionnelle au dessus, elle opérera non
-seulement une opération sur un $carré$ de chaque \texttt{feature map}, mais elle
+seulement une opération sur un carré de chaque \texttt{feature map}, mais elle
 effectura une opérations sur les résultats de cette opération sur chaque feature
 map.
 
@@ -201,16 +202,16 @@ quoi que ce soit à l'image obtenue après transformation.
 
 \paragraph{Un unique neurone peut constituer un réseau profond!}
 
-L'idée est que l'entrée est traitée comme une suite de morceaux d'entrée:
+L'idée est que l'entrée est traitée comme une suite d'entrées:
 typiquement c'est le cas d'une phrase par exemple. Chaque mot est traité par la
-courche récurrente qui va calculer deux choses à partir de cette entrée: une
+couche récurrente qui va calculer deux choses à partir de cette entrée: une
 sortie \og publique\fg et une sortie caché qui détermine un paramètre de la
 couche (une sorte d'état interne caché). Le second élément de la suite est
 ensuite traité par ce même neurone dont l'état caché a évolué suite au
 traitement du premier élément de la suite.
 
 Si on \og déplie\fg l'exécution du problème, on réalise que la séquence passe en
-fait par un nombre de couche caché égal au nombre d'éléments dans la suite!
+fait par un nombre de couches cachées égal au nombre d'éléments dans la suite!
 Ainsi, nous avons établit un réseau qui est capable de traiter un élément d'une
 suite en se rappelant en quelque sortes de ce qui s'est passé avant. La seule
 question qui reste à traiter est le fonctionnement exact de la couche cachée.
@@ -274,8 +275,8 @@ Nous disposons d'une fonction de score en fin de réseau. Notre but est de
 minimiser cette fonction en modifiant les paramètres interne du réseau (qui
 déterminent les transformations effectuées sur l'entrée.). Pour ce faire, on
 utilise typiquement le gradient de la fonction de coût. Cela peut se faire au
-travers de quelquechose d'aussi simple que la descente de gradient, mais cette
-dernière à de nombreux défauts. Dans cette article nous utiliserons les
+travers de quelquechose d'aussi simple que la descente de gradient stochastique, mais cette
+dernière a de nombreux défauts. Dans cette article nous utiliserons les
 optimisations dites \texttt{adagrad} et \texttt{RMSProp}.
 
 \paragraph{De la non linéarité}
@@ -283,7 +284,14 @@ optimisations dites \texttt{adagrad} et \texttt{RMSProp}.
 En un sens, les réseaux neuronaux cherchent à observer les données \og sous un
 certain angle\fg qui permet de trouver des corrélations: cela permet de faire de
 la classification, de la reconstruction, voire de la prédiction. Néanmoins si on
-se bor
+se borne à effectuer des opérations linéaires (sommes pondérées
+d'entrés, trnasformations affines) il est tout a fait possible de passer à coté
+d'un regroupement intéressant des points (les fonction linéaire préservent
+notemment l'alignement ce qui peut se révéler être un grand problème). De fait,
+il y a toujours \og à la fin\fg d'une couche une fonction dite \og
+d'activation\fg qui opére une transformation non-linéaire sur la sortie.
+Traditionnellement, on applique une sigmoïde ou une tangente hyperbolique, mais
+Hinton a montré qu'il est plus judicieux d'utiliser une fonction de seuillage \texttt{ReLU}.
 
 \section{Travail réalisé}
 
@@ -297,11 +305,4 @@ se bor
 
 \printbibliography
 
-\end{document}ne à effectuer des opérations linéaires (sommes pondérées
-d'entrés, trnasformations affines) il est tout a fait possible de passer à coté
-d'un regroupement intéressant des points (les fonction linéaire préservent
-notemment l'alignement ce qui peut se révéler être un grand problème). De fait,
-il y a toujours \og à la fin\fg d'une couche une fonction dite \og
-d'activation\fg qui opére une transformation non-linéaire sur la sortie.
-Traditionnellement, on applique une sigmoïde ou une tangente hyperbolique, mais
-Hinton a montré qu'il est plus judicieux d'utiliser une fonction de seuillage \texttt{ReLU}.
+\end{document}

@@ -2,7 +2,7 @@
  "Rapport"
  (lambda ()
    (TeX-add-to-alist 'LaTeX-provided-class-options
-                     '(("article" "a4paper" "11pt")))
+                     '(("article" "a4paper" "11pt" "twocolumn")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("fontenc" "T1") ("inputenc" "utf8") ("babel" "main=francais" "english") ("biblatex" "backend=biber" "style=authoryear-comp")))
    (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")

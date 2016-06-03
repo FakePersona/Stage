@@ -1,0 +1,181 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.5 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist{nyt}{nyt}
+    \entry{DBLP:journals/corr/ChoMGBSB14}{article}{}
+      \name{author}{6}{}{%
+        {{uniquename=0,hash=3da7501a79d9346572c7fd6e41b615df}{Cho}{C\bibinitperiod}{Kyunghyun}{K\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=d27fe3f9898ba01eeca28e3bd205f9ea}{Merrienboer}{M\bibinitperiod}{Bart}{B\bibinitperiod}{van}{v\bibinitperiod}{}{}}%
+        {{uniquename=0,hash=23bc43e1663cf51073e07f4ba4940635}{Gülçehre}{G\bibinitperiod}{Çaglar}{Ç\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=6deedc795e51da1bc7fd6289ab321a48}{Bougares}{B\bibinitperiod}{Fethi}{F\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=449689e8c1ced50f608244e3a96fe6d3}{Schwenk}{S\bibinitperiod}{Holger}{H\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=40a8e4774982146adc2688546f54efb2}{Bengio}{B\bibinitperiod}{Yoshua}{Y\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{9b1920db887fe0d658725c1e606b61f4}
+      \strng{fullhash}{ab67beaf866adf6627d1e94acd3f7edd}
+      \field{sortinit}{C}
+      \field{sortinithash}{59f25d509f3381b07695554a9f35ecb2}
+      \field{labelyear}{2014}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{CoRR}
+      \field{title}{Learning Phrase Representations using {RNN} Encoder-Decoder for Statistical Machine Translation}
+      \field{volume}{abs/1406.1078}
+      \field{year}{2014}
+      \verb{url}
+      \verb http://arxiv.org/abs/1406.1078
+      \endverb
+    \endentry
+    \entry{socher2011semi}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{uniquename=0,hash=d5670b2600fea169724521e252d9d09d}{Socher}{S\bibinitperiod}{Richard}{R\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=ab47b497d1b0cdaddd8594e4bd501ee5}{Pennington}{P\bibinitperiod}{Jeffrey}{J\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=f501ea909066ea3159ac2588fa051e8a}{Huang}{H\bibinitperiod}{Eric\bibnamedelima H}{E\bibinitperiod\bibinitdelim H\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=799b172b8d02b7acdf21d0cc48934fca}{Ng}{N\bibinitperiod}{Andrew\bibnamedelima Y}{A\bibinitperiod\bibinitdelim Y\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=1261894eaefc186bfeabf336e05e6294}{Manning}{M\bibinitperiod}{Christopher\bibnamedelima D}{C\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+      }
+      \list{organization}{1}{%
+        {Association for Computational Linguistics}%
+      }
+      \strng{namehash}{e7c60479e674fc5df9f60993d72cca39}
+      \strng{fullhash}{74317df2c0e49e9ed9f58c514d2bdbff}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelyear}{2011}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Conference on Empirical Methods in Natural Language Processing}
+      \field{title}{Semi-supervised recursive autoencoders for predicting sentiment distributions}
+      \field{year}{2011}
+      \field{pages}{151\bibrangedash 161}
+      \range{pages}{11}
+    \endentry
+    \entry{Spencer:2015:DLN:2817095.2817106}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,hash=f1db42e2d47eb023023a680d34bffd56}{Spencer}{S\bibinitperiod}{Matt}{M\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=6d302f5c1c509e7e9c460c09d9866748}{Eickholt}{E\bibinitperiod}{Jesse}{J\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=fd43749e3745ea8dbf421d10a0062425}{Cheng}{C\bibinitperiod}{Jianlin}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Los Alamitos, CA, USA}%
+      }
+      \list{publisher}{1}{%
+        {IEEE Computer Society Press}%
+      }
+      \strng{namehash}{0866efca2a4cf16cefebe11c9e63c53e}
+      \strng{fullhash}{0866efca2a4cf16cefebe11c9e63c53e}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelyear}{2015}
+      \field{labelmonth}{01}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1545-5963}
+      \field{journaltitle}{IEEE/ACM Trans. Comput. Biol. Bioinformatics}
+      \field{month}{01}
+      \field{number}{1}
+      \field{title}{A Deep Learning Network Approach to Ab Initio Protein Secondary Structure Prediction}
+      \field{volume}{12}
+      \field{year}{2015}
+      \field{pages}{103\bibrangedash 112}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1109/TCBB.2014.2343960
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1109/TCBB.2014.2343960
+      \endverb
+      \keyw{deep learning,machine learning,neural nets,protein structure prediction}
+    \endentry
+    \entry{NIPS2014_5346}{incollection}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,hash=8d569d1d5b8b5a7836017a98b430f959}{Sutskever}{S\bibinitperiod}{Ilya}{I\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=494b568c5dc85ba8f3f409635f9c5f25}{Vinyals}{V\bibinitperiod}{Oriol}{O\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=9fd2dcec218c0c88f5cf6dcdefdbadbb}{Le}{L\bibinitperiod}{Quoc\bibnamedelima V}{Q\bibinitperiod\bibinitdelim V\bibinitperiod}{}{}{}{}}%
+      }
+      \name{editor}{5}{}{%
+        {{hash=b45872831548714dccc49dcfa20306a1}{Ghahramani}{G\bibinitperiod}{Z.}{Z\bibinitperiod}{}{}{}{}}%
+        {{hash=8b7fe0e4c2b0f504bdf6a5d895d39ee1}{Welling}{W\bibinitperiod}{M.}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=7ace0f703f75865b2add1cb4c55909ea}{Cortes}{C\bibinitperiod}{C.}{C\bibinitperiod}{}{}{}{}}%
+        {{hash=8f87e28885fa1a253eaadafeeb73e581}{Lawrence}{L\bibinitperiod}{N.\bibnamedelimi D.}{N\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{hash=2cffb24bf1e4e0056d694659663c471c}{Weinberger}{W\bibinitperiod}{K.\bibnamedelimi Q.}{K\bibinitperiod\bibinitdelim Q\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Curran Associates, Inc.}%
+      }
+      \strng{namehash}{829cd667900cd37d08e0aa7e5adbd06f}
+      \strng{fullhash}{829cd667900cd37d08e0aa7e5adbd06f}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelyear}{2014}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems 27}
+      \field{title}{Sequence to Sequence Learning with Neural Networks}
+      \field{year}{2014}
+      \field{pages}{3104\bibrangedash 3112}
+      \range{pages}{9}
+      \verb{url}
+      \verb http://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf
+      \endverb
+    \endentry
+    \entry{Vincent:2008:ECR:1390156.1390294}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,hash=da21e966c02c3cfd33d74369c7435c1a}{Vincent}{V\bibinitperiod}{Pascal}{P\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=42a970b0a0f1ed24b23064370cc9392f}{Larochelle}{L\bibinitperiod}{Hugo}{H\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=40a8e4774982146adc2688546f54efb2}{Bengio}{B\bibinitperiod}{Yoshua}{Y\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=7ba1a9455f15a2898752cabc022e1887}{Manzagol}{M\bibinitperiod}{Pierre-Antoine}{P\bibinithyphendelim A\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Helsinki, Finland}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{17d6344b63d3d08616d701213bf1af6a}
+      \strng{fullhash}{5cc31505a450b4f9e42201d7bdc2794b}
+      \field{sortinit}{V}
+      \field{sortinithash}{d18f5ce25ce0b5ca7f924e3f6c04870e}
+      \field{labelyear}{2008}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 25th International Conference on Machine Learning}
+      \field{isbn}{9781605582054}
+      \field{series}{ICML '08}
+      \field{title}{Extracting and Composing Robust Features with Denoising Autoencoders}
+      \field{year}{2008}
+      \field{pages}{1096\bibrangedash 1103}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1145/1390156.1390294
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/1390156.1390294
+      \endverb
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+

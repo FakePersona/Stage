@@ -1,0 +1,307 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{a4wide}%
+
+\usepackage{tabularx}
+
+\usepackage{fullpage}%
+\usepackage[T1]{fontenc}%
+\usepackage[utf8]{inputenc}%
+\usepackage[main=francais,english]{babel}%
+
+\usepackage{graphicx}%
+\usepackage{xspace}%
+\usepackage{float}
+
+\usepackage{url} \urlstyle{sf}%
+\DeclareUrlCommand\email{\urlstyle{sf}}%
+
+\usepackage{mathpazo}%
+\let\bfseriesaux=\bfseries%
+\renewcommand{\bfseries}{\sffamily\bfseriesaux}
+
+\newenvironment{keywords}%
+{\description\item[Mots-clés.]}%
+{\enddescription}
+
+\usepackage[backend=biber, style=authoryear-comp]{biblatex}
+\bibliography{Biblio}{}
+
+
+\newenvironment{remarque}%
+{\description\item[Remarque.]\sl}%
+{\enddescription}
+
+\font\manual=manfnt
+\newcommand{\dbend}{{\manual\char127}}
+
+\newenvironment{attention}%
+{\description\item[\dbend]\sl}%
+{\enddescription}
+
+\usepackage{listings}%
+
+\lstset{%
+  basicstyle=\sffamily,%
+  showstringspaces = false,
+  columns=fullflexible,%
+  language=c,%
+  frame=lb,%
+  frameround=fftf,%
+}%
+
+\lstMakeShortInline{|}
+
+\parskip=0.2
+\baselineskip
+
+\sloppy
+
+%opening
+\title{Application des techniques d'appentissage profonds à l'étude de la
+  classification de protéines}
+\author{Rémy Sun}
+
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  
+  \begin{keywords}
+    Deep Learning; Protéines; Séquence
+  \end{keywords}
+\end{abstract}
+
+\section*{Introduction}
+
+Les techniques dites d'apprentissage profond ont permis de grand progrès dans de
+nombreux domaines qui vont de la reconnaissance d'image à l'étude de langages
+naturels (\cite{DBLP:journals/corr/ChoMGBSB14}, \cite{socher2011semi}, \cite{NIPS2014_5346}). Néanmoins, les
+protéines demeurent un domaine relativement inexploré par l'apprentissage
+profond à l'exception de quelques travaux
+(\cite{Spencer:2015:DLN:2817095.2817106}).
+
+L'applications de techniques dévelloppées en langage naturels ou dans d'autres
+branches de la bioinformatiques permettent de faire des recoupement sémantiques,
+de la classification ou même de la prédiction sur des chaînes de \og mots\fg ou
+d'acides aminés. De fait, il semble raisonnable de penser qu'une étude des
+protéines avec des techniques similaires devraient permettre de similaires
+progrès dans la compréhension des mécanismes gouvernants le fonctionnement des
+protéines dont la séquence peptidique est fortement liée au fonctionnement.
+
+Nous nous sommes donc interessés dans ce stage à l'applications de telles techniques
+aux familles de protéines. Notre intêret ne portait pas seulement sur la
+classification de telles familles ou la reconstitution d'une proteine à partir
+d'un séquençage bruité, mais aussi sur l'étude de la possibilité de comprendre
+des mécanismes des protéines à partir des représentations intermédiaires acquises par les
+algorithmes d'apprentissages profonds entraînés.
+
+\section{Apprentissage profond?}
+
+\paragraph{Une technique d'apprentissage machine}
+
+Comme toutes les techniques d'apprentissage machine, l'apprentissage profond
+vise à entrainer un système pour qu'il résolve des situations sans que tous les
+paramètres nécessaires à la résolution du problème n'ait été calculés par
+l'implémentateur. Traditionellement, la façon de procéder serait d'utiliser par
+exemple un réseau de neurones pour faire un perceptron: il y a un couche entrée,
+une couche cachée et une couche sortie. Entre chaque couche une transformation
+paramétrée par des variables est effectuée et en sortie on évalue par une
+fonction de score le résultat renvoyé. Une optimisation sur les paramètres est
+ensuite effectuée, par descente de gradient par exemple.
+
+Ce qui différencie le Deep Learning de ces techniques d'aprentissage dites \og
+creuses\fg est d'utiliser plusieurs couches cachées (d'où la notion de
+profondeur). Cela augmente remarquablement l'abstraction du problème et permet
+de mieux traiter les problèmes dits compositionnels, c'est-à dire qui peuvent se
+décomposer en plusieurs composantes.
+
+\subsection{Entrainement non supervisé}
+
+\paragraph{Autoencodeur}
+
+Comment faire pour demander à une machine de s'entrainer par elle même sans
+qu'on lui dise quelle conclusion tirer à partir de son résultat? Une façon de
+faire consiste à lui demander de retrouver son entrée. Ainsi, on ``encode''
+l'information dans un premier temps, puis on la décode: c'est l'auto-encodeur.
+
+Traditionellement, c'est à cela (ou aux réseaux basés sur les machines
+restreintes de Boltzmann) qu'on fait référence quand on parle d'entraînement
+non-supervisé. A strictement parlé, il s'agit plus d'un entraînement
+auto-supervisé que non-supervisé, mais aucune réelle méthode d'entrainement
+non-supervisée n'existe (il faudrait probablement revoir la structure même de
+l'entrainement).
+
+\paragraph{Donc on entraîne un réseau complexe à... retrouver l'identité?}
+
+Ce n'est pas tant le but qui est intéressant ici, mais la façon de l'atteindre.
+Evidemment, il y a un réel risque que cette manière de l'atteindre ne soit pas
+particuliérement intéressante non plus (on encode l'identité, puis on décode
+l'identité). Pour éviter cela on dipose de plusieurs moyens:
+
+\begin{itemize}
+\item Forcer l'encodeur à encoder l'entrée en une représentation intermédiaire
+  de dimension inférieure. Ainsi, on s'assure de ne pas pouvoir juste propager
+  l'identité. Mieux encore, la représentation intermédiaire, ``condensée'' peut
+  permettre de découvrir des ``points robustes'' de ce qu'on est en train
+  d'apprendre. Ce qui caractérise une famille de protéines par exemple...
+\item Corrompre l'information donnée en entrée (comme proposé par \cite{Vincent:2008:ECR:1390156.1390294})pour forcer l'encodeur à
+  ``deviner'' ce qu'il manque, ce qui permettrait par exemple de mettre en
+  lumière des corrélations non évidentes à l'oeil nu.
+\item Poser des contraintes sur la représentation intermédiaire acquise
+\item Aléatoirement désactiver certains neurones, ce qui force le système à
+  introduire de la redondance (et donc à choisir ce qui est réellement important)
+\end{itemize}
+
+Une partie de notre travail s'est focalisé sur l'étude de ces représentations
+intermédiaires et sur ce qu'elles nous apprennent sur les familles de protéine
+ayant servi à l'entraînement de l'auto-encodeur.
+
+\subsection{Réseaux convolutifs}
+
+\paragraph{Il y a un motif caractéristique dans les images de chameaux}
+
+C'est probablement intéressant pour classifier des images d'animaux, mais de là
+à le repérer sur un pixel... Ce qu'on peut faire par contre, est \og
+scanner\fg des carrés $3\times 3$. En pratique, c'est créer une couche cachée
+dont chaque neurone applique une même transformation sur les 9 neurones d'un
+carré $3\times 3$. Il s'agit donc de faire une convolution sur l'image d'une
+fonction de transformation!
+
+Nous venons de décrire une couche générant une image réduite dont chaque
+neurone/pixel donne la valeur de l'application d'une fonction à un carré
+$3\times 3$. Nous appellerons une telle représentation \texttt{feature map}:
+elle donne la représentation d'une \og feature\fg sur l'image.
+
+\paragraph{Pourquoi s'arrêter à une \texttt{feature map}?}
+
+Typiquement on crée plusieurs \texttt{feature maps} en parrallèle dans un réseau
+convolutionnel. Rappellons déjà que nous n'avons pas beaucoup de contrôle sur la
+caractèristique que le réseau va retrouver puisqu'il va apprendre la
+caractéristique qui donne le meilleur résultat par lui-même. Multiplier les
+\texttt{feature maps} permet de distinguer plus de points caractéristiques sui
+seront ensuite traités par une couche supérieure.
+
+Si on veut rajouter une couche convolutionnelle au dessus, elle opérera non
+seulement une opération sur un $carré$ de chaque \texttt{feature map}, mais elle
+effectura une opérations sur les résultats de cette opération sur chaque feature
+map.
+
+\paragraph{Réduire la charge de calcul}
+
+Pour augmenter un peu la robustesse du système à une translation par exemple, on
+effectue un \texttt{pooling} qui consiste à regrouper ensemble des blocs de
+neurones. Non seulement cela permet de réduire la taille de la représentation
+considérée, cela fait qu'une simple translation a moins de chance de changer
+quoi que ce soit à l'image obtenue après transformation.
+
+\subsection{Réseaux récurrents}
+
+\paragraph{Un unique neurone peut constituer un réseau profond!}
+
+L'idée est que l'entrée est traitée comme une suite de morceaux d'entrée:
+typiquement c'est le cas d'une phrase par exemple. Chaque mot est traité par la
+courche récurrente qui va calculer deux choses à partir de cette entrée: une
+sortie \og publique\fg et une sortie caché qui détermine un paramètre de la
+couche (une sorte d'état interne caché). Le second élément de la suite est
+ensuite traité par ce même neurone dont l'état caché a évolué suite au
+traitement du premier élément de la suite.
+
+Si on \og déplie\fg l'exécution du problème, on réalise que la séquence passe en
+fait par un nombre de couche caché égal au nombre d'éléments dans la suite!
+Ainsi, nous avons établit un réseau qui est capable de traiter un élément d'une
+suite en se rappelant en quelque sortes de ce qui s'est passé avant. La seule
+question qui reste à traiter est le fonctionnement exact de la couche cachée.
+
+Il est possible de faire fonctionner cette couche cachée comme un réseau neuronal
+complétement relié classique avec une sortie et entrée supplémentaire
+représentant l'état caché, mais cela pose d'est problème d'évanouissement du
+gradient lors de la rétropropagation.
+
+\paragraph{Long Short-Term Memory (LSTM)}
+
+Une architecture de couche dont le comportement naturel est de se rappeler de ce
+qui s'est passé avant est exposée dans . L'idée est qu'on a un état de
+cellule, un état caché et une entrée. A chaque passage dans la couche, on calcul
+quel degré d'information il faut retenir de l'état de la cellule en fonction de
+l'état caché et de l'entrée. Ensuite on calcule s'il faut ajouter de
+l'information à l'état de la cellule. Enfin, on fait le calcul de la sortie et
+de l'état caché à partir des trois données précedentes.
+
+\paragraph{Pourquoi utiliser un réseau récurrent?}
+
+Les réseaux récurrents se sont avérés très utiles à l'études du langage naturel
+puisqu'il permettent de détecter des corrélations dans une phrase qu'un réseau
+convolutionnel ne détecterait pas forcément (la fenêtre de détection d'une
+couche convolutionnelle est après tout de taille finie).  La sortie récupérée
+peut être de deux types différents: on peut récupérer la suite des sorties du
+réseau récurrent, ou on peut choisir de récupérer la dernière sortie de la
+couche récurrente qui servirait alors de \og résumé\fg de ce qui s'est passé à
+la lecture de la suite.
+
+\paragraph{Un auto-encodeur récurrent?}
+
+Une architecture d'auto-encodeur profonde que nous avons particulièrement étudié
+(et qui fournit de bons résultats pour la détection de structures comme la copie
+dans une chaîne) est celle proposée dans \cite{DBLP:journals/corr/ChoMGBSB14}.
+L'idée est d'utiliser un premier auto-encodeur pour servir d'encodeur: on ne
+récupére que sa sortie sur le dernier terme de la suite d'entrée. Cette sortie
+est de dimension finie et nous servira de résumé (qui compresse éventuellement
+l'information). Il suffit ensuite de passer ce résumé dans un autre
+auto-encodeur récurrent en récupérant ctte fois chaque sortie (qu'on encode
+ensuite en une lettre avec un réseau dense et un \texttt{softmax}).
+
+\subsection{Initialisation et optimisation des réseaux d'apprentissage profond}
+
+\paragraph{Entraînement non-supervisé?}
+
+Il a été montré dans de nombreux travaux qu'il est possible d'entrainer des
+auto-encodeurs les uns à la suite et d'aboutir à des situations permettant
+d'éviter de trop mauvais minima locaux. C'est d'ailleurs ce qui a motivé le
+second souffle du deep learning vers la fin des années 2000
+
+Néanmoins, des travaux plus récents ont montrés qu'il suffit d'utiliser des
+initialisation aléatoires bien choisies pour largement passer outre les problème
+de minima locaux: nous n'avons jamais besoin que d'une instance d'entraînement
+évitant les minima locaux. Nous avons utilisé dans ce stage l'initialisation
+proposée dans .
+
+\paragraph{Rétropropagation}
+
+Nous disposons d'une fonction de score en fin de réseau. Notre but est de
+minimiser cette fonction en modifiant les paramètres interne du réseau (qui
+déterminent les transformations effectuées sur l'entrée.). Pour ce faire, on
+utilise typiquement le gradient de la fonction de coût. Cela peut se faire au
+travers de quelquechose d'aussi simple que la descente de gradient, mais cette
+dernière à de nombreux défauts. Dans cette article nous utiliserons les
+optimisations dites \texttt{adagrad} et \texttt{RMSProp}.
+
+\paragraph{De la non linéarité}
+
+En un sens, les réseaux neuronaux cherchent à observer les données \og sous un
+certain angle\fg qui permet de trouver des corrélations: cela permet de faire de
+la classification, de la reconstruction, voire de la prédiction. Néanmoins si on
+se bor
+
+\section{Travail réalisé}
+
+
+
+\section{Vérification}
+
+\section{Contribution}
+
+\section*{Conclusion}
+
+\printbibliography
+
+\end{document}ne à effectuer des opérations linéaires (sommes pondérées
+d'entrés, trnasformations affines) il est tout a fait possible de passer à coté
+d'un regroupement intéressant des points (les fonction linéaire préservent
+notemment l'alignement ce qui peut se révéler être un grand problème). De fait,
+il y a toujours \og à la fin\fg d'une couche une fonction dite \og
+d'activation\fg qui opére une transformation non-linéaire sur la sortie.
+Traditionnellement, on applique une sigmoïde ou une tangente hyperbolique, mais
+Hinton a montré qu'il est plus judicieux d'utiliser une fonction de seuillage \texttt{ReLU}.

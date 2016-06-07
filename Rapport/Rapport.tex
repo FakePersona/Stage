@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt, twocolumn]{article}
+\documentclass[a4paper,11pt]{article}
 \usepackage{a4wide}%
 
 \usepackage{tabularx}
@@ -304,7 +304,28 @@ Hinton a montré qu'il est plus judicieux d'utiliser une fonction de seuillage \
 
 \section{Travail réalisé}
 
+\subsection{Choix des architectures d'apprentissage profond}
 
+
+\subsection{Clustering de protéines}
+
+Les auto-encodeurs générent un représentation intermédiaire dans un premier
+temps. Nous avons voulu étudier cette représentation intermédiaire pour en
+apprendre plus sur les choses auquelles l'auto-encodeur fait attention quand il
+encode la protéine et qui lui permettent de reconstruire par la suite la
+protéine.
+
+En première approximation, on pourrait penser retrouver un hyperplan ou une
+nappe aparentable à une feature connue. Néanmoins une telle étude est difficile
+à exploiter. Nous nous sommes penchés sur la piste du clustering
+de protéines en fonction de leur représentation intermédiaire. En effet, si on
+regroupe ensemble des protéines \og proches\fg du point de vue de leur
+représentation intermédiaire, il est peut-être possible de gagner de remarquer
+des points remarquables dans la structure de protéines qui pourront être
+ré-utilisés de manière indépendante de l'apprentissage profond plus tard.
+
+Un simple algorithme de K-means permet de faire le découpage en parties de
+l'ensemble d'apprentissage.
 
 \section{Vérification}
 

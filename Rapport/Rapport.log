@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.4.26)  3 JUN 2016 16:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.4.26)  7 JUN 2016 14:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -772,184 +772,49 @@ LaTeX Font Info:    Try loading font information for T1+cmss on input line 70.
 
 (/usr/share/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-Underfull \hbox (badness 1521) in paragraph at lines 79--86
-\T1/ppl/m/sc/10.95 ke-ver\T1/ppl/m/n/10.95 , \T1/ppl/m/sc/10.95 Vi-nyals \T1/pp
-l/m/n/10.95 et \T1/ppl/m/sc/10.95 Le \T1/ppl/m/n/10.95 2014). Néan-moins,
+) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Underfull \hbox (badness 1043) in paragraph at lines 153--156
+[]\T1/ppl/m/n/10.95 Corrompre l'in-for-ma-tion don-née en en-trée (comme pro-po
+sé par []\T1/ppl/m/sc/10.95 Vincent \T1/ppl/m/n/10.95 et al.
  []
 
-
-Underfull \hbox (badness 5460) in paragraph at lines 106--115
- \T1/cmss/bx/n/10.95 Une tech-nique d'ap-pren-tis-sage ma-chine[]
- []
-
-
-Underfull \hbox (badness 1092) in paragraph at lines 106--115
-\T1/ppl/m/n/10.95 saires à la ré-so-lu-tion du pro-blème n'aient
- []
-
-
-Underfull \vbox (badness 4927) has occurred while \output is active []
-
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
-
-]
-Underfull \hbox (badness 1320) in paragraph at lines 131--137
-\T1/ppl/m/n/10.95 Boltz-mann) qu'on fait ré-fé-rence quand on
- []
-
-
-Underfull \hbox (badness 1502) in paragraph at lines 131--137
-\T1/ppl/m/n/10.95 te-ment parlé, il s'agit plus d'un en-traî-ne-
- []
-
-
-Underfull \hbox (badness 1728) in paragraph at lines 157--166
-\T1/ppl/m/n/10.95 rones, ce qui force le sys-tème à in-
- []
-
-
-Underfull \hbox (badness 3396) in paragraph at lines 157--166
-\T1/ppl/m/n/10.95 C'est une tech-nique aussi em-ployée
- []
-
-
-Underfull \hbox (badness 1122) in paragraph at lines 157--166
-\T1/ppl/m/n/10.95 les chaînes pu-re-ment aléa-toires, mais
- []
-
-
-Underfull \hbox (badness 1360) in paragraph at lines 157--166
-\T1/ppl/m/n/10.95 il se-rait pro-blè-ma-tique que cet auto-
- []
-
-
-Underfull \hbox (badness 1062) in paragraph at lines 176--182
-\T1/cmss/bx/n/10.95 de cha-meaux[] \T1/ppl/m/n/10.95 C'est pro-ba-ble-ment in-t
-é-res-
- []
-
+[2]
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 185.
 
-(/usr/share/texmf-dist/tex/latex/base/t1cmtt.fd
+ (/usr/share/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 190.
- [2]
-Underfull \hbox (badness 1147) in paragraph at lines 228--232
-[]\T1/ppl/m/n/10.95 Il est pos-sible de faire fonc-tion-ner cette
- []
-
-
-Underfull \hbox (badness 1142) in paragraph at lines 228--232
-\T1/ppl/m/n/10.95 couche ca-chée comme un ré-seau neu-ro-nal
- []
-
-
-Underfull \hbox (badness 1112) in paragraph at lines 256--265
- \T1/cmss/bx/n/10.95 Un auto-encodeur ré-cur-rent ?[] \T1/ppl/m/n/10.95 Une ar-
-chi-
- []
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 283--290
- \T1/cmss/bx/n/10.95 Ré-tro-pro-pa-ga-tion[] \T1/ppl/m/n/10.95 Nous dis-po-sons
- d'une
- []
-
-
-Underfull \hbox (badness 1325) in paragraph at lines 283--290
-\T1/ppl/m/n/10.95 les pa-ra-mètres in-terne du ré-seau (qui dé-
- []
-
-
-Underfull \hbox (badness 1546) in paragraph at lines 283--290
-\T1/ppl/m/n/10.95 tique, mais cette der-nière a de nom-breux
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 316--316
-[][]\T1/ppl/m/sc/10.95 Cho\T1/ppl/m/n/10.95 , Kyun-ghyun et al. (2014). ``Lear-
-
- []
-
-
-Underfull \hbox (badness 1168) in paragraph at lines 316--316
-\T1/ppl/m/n/10.95 ning Phrase Re-pre-sen-ta-tions using RNN
- []
-
-
-Underfull \hbox (badness 3158) in paragraph at lines 316--316
-\T1/ppl/m/n/10.95 Encoder-Decoder for Sta-tis-ti-cal Ma-chine
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 316--316
-[][]\T1/ppl/m/sc/10.95 Socher\T1/ppl/m/n/10.95 , Ri-chard et al. (2011). ``Semi
--
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 316--316
-\T1/ppl/m/n/10.95 supervised re-cur-sive au-toen-co-ders for
- []
-
-
-Underfull \hbox (badness 2318) in paragraph at lines 316--316
-\T1/ppl/m/n/10.95 pre-dic-ting sen-ti-ment dis-tri-bu-tions''. In :
- []
-
-
-Underfull \hbox (badness 1354) in paragraph at lines 316--316
-\T1/ppl/m/it/10.95 Pro-cee-dings of the Confe-rence on Em-pi-ri-cal
- []
-
-
-Underfull \hbox (badness 4543) in paragraph at lines 316--316
-\T1/ppl/m/it/10.95 Me-thods in Na-tu-ral Lan-guage Pro-ces-sing\T1/ppl/m/n/10.9
-5 .
- []
-
-
-Underfull \hbox (badness 1436) in paragraph at lines 316--316
-[][]\T1/ppl/m/sc/10.95 Spencer\T1/ppl/m/n/10.95 , Matt, Jesse \T1/ppl/m/sc/10.9
-5 Eick-holt \T1/ppl/m/n/10.95 et Jian-lin
- []
-
-
-Underfull \hbox (badness 1584) in paragraph at lines 316--316
-\T1/ppl/m/sc/10.95 Le \T1/ppl/m/n/10.95 (2014). ``Se-quence to Se-quence Lear-
- []
-
-[4] [5
-
-] (./Rapport.aux)
+ [3] [4] [5] [6]
+(./Rapport.aux)
 Package logreq Info: Writing requests to 'Rapport.run.xml'.
 \openout1 = `Rapport.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 10278 strings out of 493054
- 163592 string characters out of 6140586
- 590187 words of memory out of 5000000
- 13626 multiletter control sequences out of 15000+600000
- 31294 words of font info for 67 fonts, out of 8000000 for 9000
+ 10284 strings out of 493054
+ 163656 string characters out of 6140586
+ 588182 words of memory out of 5000000
+ 13629 multiletter control sequences out of 15000+600000
+ 34420 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,7n,51p,1151b,1517s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,6n,51p,1151b,1517s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/t
 exmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfss
-1095.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/
-share/texmf-dist/fonts/type1/public/cm-super/sfsx1200.pfb></usr/share/texmf-dis
-t/fonts/type1/public/cm-super/sfsx1440.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/cm-super/sftt1095.pfb></usr/share/texmf-dist/fonts/type1/urw/palatino/upl
-r8a.pfb></usr/share/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on Rapport.pdf (5 pages, 166652 bytes).
+1095.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfsx1000.pfb></usr/
+share/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/share/texmf-dis
+t/fonts/type1/public/cm-super/sfsx1200.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/cm-super/sfsx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/
+sftt1095.pfb></usr/share/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/s
+hare/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on Rapport.pdf (6 pages, 180371 bytes).
 PDF statistics:
- 54 PDF objects out of 1000 (max. 8388607)
- 38 compressed objects within 1 object stream
+ 61 PDF objects out of 1000 (max. 8388607)
+ 43 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

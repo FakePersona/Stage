@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RecurrentAutoencoder.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RecurrentAutoencoder.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/RecurrentAutoencoder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="77" column="27" selection-start-line="77" selection-start-column="27" selection-end-line="77" selection-end-column="27" />
+            <state relative-caret-position="502">
+              <caret line="79" column="62" selection-start-line="79" selection-start-column="62" selection-end-line="79" selection-end-column="62" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -45,11 +45,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RecurrentCluster.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ConvolutionalAuto.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/ConvolutionalAuto.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="664">
+              <caret line="109" column="30" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RecurrentCluster.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/RecurrentCluster.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="808">
-              <caret line="107" column="22" selection-start-line="107" selection-start-column="22" selection-end-line="107" selection-end-column="22" />
+            <state relative-caret-position="610">
+              <caret line="83" column="65" selection-start-line="83" selection-start-column="65" selection-end-line="83" selection-end-column="65" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -96,8 +108,9 @@
         <option value="$PROJECT_DIR$/Experiences/fastaRecurrentAuto.py" />
         <option value="$PROJECT_DIR$/Templates/AutoEncoders/SuperEncoder.py" />
         <option value="$PROJECT_DIR$/Templates/AutoEncoders/DenoisingRecurrentAuto.py" />
-        <option value="$PROJECT_DIR$/Templates/AutoEncoders/RecurrentCluster.py" />
+        <option value="$PROJECT_DIR$/Templates/AutoEncoders/ConvolutionalAuto.py" />
         <option value="$PROJECT_DIR$/Templates/AutoEncoders/RecurrentAutoencoder.py" />
+        <option value="$PROJECT_DIR$/Templates/AutoEncoders/RecurrentCluster.py" />
       </list>
     </option>
   </component>
@@ -485,10 +498,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/RecurrentCluster.py">
+    <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/ConvolutionalAuto.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="808">
-          <caret line="107" column="22" selection-start-line="107" selection-start-column="22" selection-end-line="107" selection-end-column="22" />
+        <state relative-caret-position="664">
+          <caret line="109" column="30" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -497,8 +510,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/RecurrentAutoencoder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="77" column="27" selection-start-line="77" selection-start-column="27" selection-end-line="77" selection-end-column="27" />
+        <state relative-caret-position="502">
+          <caret line="79" column="62" selection-start-line="79" selection-start-column="62" selection-end-line="79" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/RecurrentCluster.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="83" column="65" selection-start-line="83" selection-start-column="65" selection-end-line="83" selection-end-column="65" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

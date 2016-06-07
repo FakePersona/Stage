@@ -32,39 +32,65 @@ class CharacterTable(object):
         return ''.join(self.indices_char[x] for x in X)
 
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-ctable = CharacterTable(chars, 20)
+ctable = CharacterTable(chars, 30)
 
 ACIDS = 26
 encoding_dim = 52
 
 print("Generating data...")
-data = [2 * [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(200000)]
+data = [2 * [''.join(np.random.choice(list(chars))) for _ in range(15)] for _ in range(200000)]
 
-X = np.zeros((len(data), 10, len(chars)), dtype=np.bool)
+X = np.zeros((len(data), 30, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(data):
-    X[i] = ctable.encode(sentence, maxlen=10)
+    X[i] = ctable.encode(sentence, maxlen=30)
 
 
-test = [2 * [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(2000)]
+test = [2 * [''.join(np.random.choice(list(chars))) for _ in range(15)] for _ in range(2000)]
 
-X_val = np.zeros((len(test), 10, len(chars)), dtype=np.bool)
+X_val = np.zeros((len(test), 30, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(test):
-    X_val[i] = ctable.encode(sentence, maxlen=10)
+    X_val[i] = ctable.encode(sentence, maxlen=30)
 
 print("Creating model...")
 model = Sequential()
 
 #Convolutional encoder
-model.add(Convolution1D(10, 5, activation='relu', input_shape=(10, ACIDS)))
+model.add(Convolution1D(30, 5, activation='relu', input_shape=(30, ACIDS)))
 model.add(Dropout(0.2))
-model.add(Convolution1D(3, 2))
+
+model.add(Convolution1D(10, 2, activation='relu'))
+model.add(Dropout(0.2))
+
+model.add(Convolution1D(13, 2, activation='relu'))
+model.add(Dropout(0.2))
+
+model.add(Convolution1D(3, 2, activation='relu'))
+model.add(Dropout(0.2))
+
+model.add(Convolution1D(6, 2, activation='relu'))
+model.add(Dropout(0.2))
+
+model.add(Convolution1D(6, 2, activation='relu'))
+model.add(Dropout(0.2))
+
+model.add(Convolution1D(7, 2, activation='relu'))
+model.add(Dropout(0.2))
+
+model.add(Convolution1D(3, 2, activation='relu'))
+model.add(Dropout(0.2))
+
+model.add(Convolution1D(3, 2, activation='relu'))
+model.add(Dropout(0.2))
+
+model.add(Convolution1D(3, 2, activation='relu'))
+model.add(Dropout(0.2))
+
 model.add(Flatten())
-model.add(Dense(1))
+model.add(Dense(encoding_dim))
 
-
-model.add(RepeatVector(10))
+model.add(RepeatVector(30))
 
 #And decoding
 model.add(recurrent.LSTM(ACIDS, return_sequences=True))

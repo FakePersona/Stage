@@ -65,7 +65,9 @@ print("Creating model...")
 model = Sequential()
 
 #Recurrent encoder
-model.add(recurrent.LSTM(encoding_dim, input_shape=(10, ACIDS)))
+model.add(recurrent.LSTM(encoding_dim, input_shape=(10, ACIDS), return_sequences=True))
+model.add(recurrent.LSTM(encoding_dim, return_sequences=True))
+model.add(recurrent.LSTM(encoding_dim))
 model.add(RepeatVector(10))
 
 #And decoding
@@ -79,7 +81,7 @@ model.load_weights("plop.h5")
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
-get_summary = K.function([model.layers[0].input], [model.layers[0].output])
+get_summary = K.function([model.layers[0].input], [model.layers[2].output])
 
 print("Let's go!")
 

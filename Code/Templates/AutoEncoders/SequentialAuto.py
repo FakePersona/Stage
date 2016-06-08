@@ -7,8 +7,8 @@ from keras import backend as K
 from keras.models import Sequential
 from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense
 
-from Bio import SeqIO
-
+import seq2seq
+from seq2seq.models import SimpleSeq2seq
 
 class CharacterTable(object):
     '''
@@ -35,64 +35,45 @@ class CharacterTable(object):
             X = X.argmax(axis=-1)
         return ''.join(self.indices_char[x] for x in X)
 
-chars = 'abcdefghijklmnopqrstuvwxXy'
-ctable = CharacterTable(chars, 20)
+chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ctable = CharacterTable(chars, 10)
 
 ACIDS = 26
-encoding_dim = 50
+encoding_dim = 8
 
 np.set_printoptions(threshold=np.nan)
 
 print("Generating data...")
 
-data = []
-test = []
+data = [2 * [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(200000)]
 
-record = SeqIO.parse("astral-scopedom-seqres-gd-sel-gs-bib-40-2.06.fa", "fasta")
 
-for rec in record:
-    if len(test) > 1999:
-        break
-    if len(rec.seq) < 20:
-        continue
-    if len(data) > 9999:
-        test.append([rec.seq[i] for i in range(20)])
-    else:
-        data.append([rec.seq[i] for i in range(20)])
-
-X = np.zeros((len(data), 20, len(chars)), dtype=np.bool)
+X = np.zeros((len(data), 10, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(data):
-    X[i] = ctable.encode(sentence, maxlen=20)
+    X[i] = ctable.encode(sentence, maxlen=10)
 
-X_val = np.zeros((len(test), 20, len(chars)), dtype=np.bool)
+
+test = [2 * [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(2000)]
+
+X_val = np.zeros((len(test), 10, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(test):
-    X_val[i] = ctable.encode(sentence, maxlen=20)
+    X_val[i] = ctable.encode(sentence, maxlen=10)
 
 print("Creating model...")
-model = Sequential()
-
 #Recurrent encoder
-model.add(recurrent.LSTM(encoding_dim, input_shape=(20, ACIDS)))
-model.add(RepeatVector(20))
+model = SimpleSeq2seq(input_dim=26, hidden_dim=encoding_dim,output_length=20, output_dim=26)
 
-#And decoding
-model.add(recurrent.LSTM(ACIDS, return_sequences=True))
-
-# For each of step of the output sequence, decide which character should be chosen
-model.add(TimeDistributed(Dense(len(chars))))
-model.add(Activation('softmax'))
-
-model.load_weights("20prot.h5")
+#model.load_weights("plop.h5")
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
-get_summary = K.function([model.layers[0].input], [model.layers[0].output])
+get_summary = K.function([model.layers[0].input], [model.layers[2].output])
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 200):
+for iteration in range(1, 100):
     print()
     print('-' * 50)
     print('Iteration', iteration)
@@ -105,31 +86,19 @@ for iteration in range(1, 200):
         row = X_val[np.array([ind])]
         preds = model.predict_classes(row, verbose=0)
         correct = ctable.decode(row[0])
-        guess = ctable.decode(preds[0], calc_argmax=False)
+        intermediate = get_summary([row])[0]
+        guess = ctable.decode(preds[0])
         print('T', correct)
         print('P', guess)
+        print('I', intermediate)
         print('---')
 
-    #Random test
-    beep = [''.join(np.random.choice(list(chars))) for _ in range(20)]
-    row = np.zeros((len(test), 20, len(chars)), dtype=np.bool)
-    row[0] = ctable.encode(beep, maxlen=20)
+    beep = [''.join(np.random.choice(list(chars))) for _ in range(10)]
+    row = np.zeros((len(test), 10, len(chars)), dtype=np.bool)
+    row[0] = ctable.encode(beep, maxlen=10)
     preds = model.predict_classes(row, verbose=0)
     correct = ctable.decode(row[0])
     guess = ctable.decode(preds[0], calc_argmax=False)
     print('T', correct)
     print('P', guess)
     print('---')
-
-    #AAAAAAAAAAAAAA test
-    beep = [''.join('a') for _ in range(20)]
-    row = np.zeros((len(test), 20, len(chars)), dtype=np.bool)
-    row[0] = ctable.encode(beep, maxlen=20)
-    preds = model.predict_classes(row, verbose=0)
-    correct = ctable.decode(row[0])
-    guess = ctable.decode(preds[0], calc_argmax=False)
-    print('T', correct)
-    print('P', guess)
-    print('---')
-
-model.save_weights("20prot.h5", overwrite=True)

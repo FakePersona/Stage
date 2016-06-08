@@ -79,7 +79,7 @@ model.load_weights("plop.h5")
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
-get_summary = K.function([model.layers[0].input], [model.layers[0].output])
+get_summary = K.function([model.layers[0].input], [model.layers[2].output])
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset

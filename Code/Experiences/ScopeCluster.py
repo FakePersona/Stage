@@ -4,10 +4,10 @@ import numpy as np
 
 from keras import backend as K
 
-from keras.models import Sequential
-from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout
+from sklearn import cluster
 
-from Bio import SeqIO
+from keras.models import Sequential
+from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense
 
 
 class CharacterTable(object):
@@ -90,47 +90,32 @@ model.load_weights("20prot.h5")
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
 get_summary = K.function([model.layers[0].input], [model.layers[0].output])
-œ
+
 print("Let's go!")
-# Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 800):
-    print()
-    print('-' * 50)
-    print('Iteration', iteration)
-    model.fit(X, X, batch_size=128, nb_epoch=1,
-              validation_data=(X_val, X_val))
-    ###
-    # Select 10 samples from the validation set at random so we can visualize errors
-    for i in range(10):
-        ind = np.random.randint(0, len(X_val))
-        row = X_val[np.array([ind])]
-        preds = model.predict_classes(row, verbose=0)
-        correct = ctable.decode(row[0])
-        guess = ctable.decode(preds[0], calc_argmax=False)
-        print('T', correct)
-        print('P', guess)
-        print('---')
 
-    #Random test
-    beep = [''.join(np.random.choice(list(chars))) for _ in range(20)]
-    row = np.zeros((len(test), 20, len(chars)), dtype=np.bool)
-    row[0] = ctable.encode(beep, maxlen=20)
+Embed = [[0 for _ in range(encoding_dim)] for _ in range(len(X))]
+
+for i in range(len(X)):
+    row = X[np.array([i])]
     preds = model.predict_classes(row, verbose=0)
     correct = ctable.decode(row[0])
+    intermediate = get_summary([row])[0][0]
     guess = ctable.decode(preds[0], calc_argmax=False)
-    print('T', correct)
-    print('P', guess)
-    print('---')
+    Embed[i] = intermediate
 
-    #AAAAAAAAAAAAAA test
-    beep = [''.join('a') for _ in range(20)]
-    row = np.zeros((len(test), 20, len(chars)), dtype=np.bool)
-    row[0] = ctable.encode(beep, maxlen=20)
-    preds = model.predict_classes(row, verbose=0)
-    correct = ctable.decode(row[0])
-    guess = ctable.decode(preds[0], calc_argmax=False)
-    print('T', correct)
-    print('P', guess)
-    print('---')
+Alg = cluster.KMeans()
 
-model.save_weights("20prot.h5", overwrite=True)
+Alg.fit(Embed)
+Cluster_ind = Alg.predict(Embed)
+
+Cluster = [[] for _ in range(8)]
+
+for i in range(len(Embed)):
+    Cluster[Cluster_ind[i]].append(data[i])
+
+text = open('text.txt', 'w')
+
+for i in range(10000):
+    for c in Cluster[1][i]:
+        text.write(c)
+    text.write('\n')

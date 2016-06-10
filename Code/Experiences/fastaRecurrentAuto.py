@@ -36,10 +36,10 @@ class CharacterTable(object):
         return ''.join(self.indices_char[x] for x in X)
 
 chars = 'abcdefghijklmnopqrstuvwxXy'
-ctable = CharacterTable(chars, 20)
+ctable = CharacterTable(chars, 30)
 
 ACIDS = 26
-encoding_dim = 50
+encoding_dim = 1000
 
 np.set_printoptions(threshold=np.nan)
 
@@ -53,30 +53,30 @@ record = SeqIO.parse("astral-scopedom-seqres-gd-sel-gs-bib-40-2.06.fa", "fasta")
 for rec in record:
     if len(test) > 1999:
         break
-    if len(rec.seq) < 20:
+    if len(rec.seq) > 300:
         continue
     if len(data) > 9999:
-        test.append([rec.seq[i] for i in range(20)])
+        test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(300 - len(rec.seq))])
     else:
-        data.append([rec.seq[i] for i in range(20)])
+        data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(300 - len(rec.seq))])
 
-X = np.zeros((len(data), 20, len(chars)), dtype=np.bool)
+X = np.zeros((len(data), 300, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(data):
-    X[i] = ctable.encode(sentence, maxlen=20)
+    X[i] = ctable.encode(sentence, maxlen=300)
 
-X_val = np.zeros((len(test), 20, len(chars)), dtype=np.bool)
+X_val = np.zeros((len(test), 300, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(test):
-    X_val[i] = ctable.encode(sentence, maxlen=20)
+    X_val[i] = ctable.encode(sentence, maxlen=300)
 
 print("Creating model...")
 model = Sequential()
 
 #Recurrent encoder
-model.add(recurrent.LSTM(encoding_dim, input_shape=(20, ACIDS)))
+model.add(recurrent.LSTM(encoding_dim, input_shape=(300, ACIDS)))
 model.add(Dropout(0.2))
-model.add(RepeatVector(20))
+model.add(RepeatVector(300))
 
 #And decoding
 model.add(recurrent.LSTM(ACIDS, return_sequences=True))
@@ -93,7 +93,7 @@ get_summary = K.function([model.layers[0].input], [model.layers[0].output])
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 300):
+for iteration in range(1, 10):
     print()
     print('-' * 50)
     print('Iteration', iteration)
@@ -112,9 +112,9 @@ for iteration in range(1, 300):
         print('---')
 
     #Random test
-    beep = [''.join(np.random.choice(list(chars))) for _ in range(20)]
-    row = np.zeros((len(test), 20, len(chars)), dtype=np.bool)
-    row[0] = ctable.encode(beep, maxlen=20)
+    beep = [''.join(np.random.choice(list(chars))) for _ in range(300)]
+    row = np.zeros((len(test), 300, len(chars)), dtype=np.bool)
+    row[0] = ctable.encode(beep, maxlen=300)
     preds = model.predict_classes(row, verbose=0)
     correct = ctable.decode(row[0])
     guess = ctable.decode(preds[0], calc_argmax=False)
@@ -122,15 +122,4 @@ for iteration in range(1, 300):
     print('P', guess)
     print('---')
 
-    #AAAAAAAAAAAAAA test
-    beep = [''.join('a') for _ in range(20)]
-    row = np.zeros((len(test), 20, len(chars)), dtype=np.bool)
-    row[0] = ctable.encode(beep, maxlen=20)
-    preds = model.predict_classes(row, verbose=0)
-    correct = ctable.decode(row[0])
-    guess = ctable.decode(preds[0], calc_argmax=False)
-    print('T', correct)
-    print('P', guess)
-    print('---')
-
-model.save_weights("20prot.h5", overwrite=True)
+model.save_weights("20prot_pad.h5", overwrite=True)

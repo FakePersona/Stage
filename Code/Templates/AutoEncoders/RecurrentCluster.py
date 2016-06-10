@@ -7,7 +7,7 @@ from keras import backend as K
 from sklearn import cluster
 
 from keras.models import Sequential
-from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense
+from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout
 
 
 class CharacterTable(object):
@@ -65,9 +65,8 @@ print("Creating model...")
 model = Sequential()
 
 #Recurrent encoder
-model.add(recurrent.LSTM(encoding_dim, input_shape=(10, ACIDS), return_sequences=True))
-model.add(recurrent.LSTM(encoding_dim, return_sequences=True))
-model.add(recurrent.LSTM(encoding_dim))
+model.add(recurrent.LSTM(encoding_dim, input_shape=(10,ACIDS)))
+model.add(Dropout(0.2))
 model.add(RepeatVector(10))
 
 #And decoding

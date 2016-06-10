@@ -5,7 +5,7 @@ import numpy as np
 from keras import backend as K
 
 from keras.models import Sequential
-from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense
+from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout
 
 
 class CharacterTable(object):
@@ -37,7 +37,7 @@ chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 ctable = CharacterTable(chars, 10)
 
 ACIDS = 26
-encoding_dim = 8
+encoding_dim = 20
 
 np.set_printoptions(threshold=np.nan)
 
@@ -63,9 +63,9 @@ print("Creating model...")
 model = Sequential()
 
 #Recurrent encoder
-model.add(recurrent.LSTM(encoding_dim, input_shape=(10, ACIDS), return_sequences=True))
-model.add(recurrent.LSTM(encoding_dim, return_sequences=True))
-model.add(recurrent.LSTM(encoding_dim))
+
+model.add(recurrent.LSTM(encoding_dim, input_shape=(10,ACIDS)))
+model.add(Dropout(0.2))
 model.add(RepeatVector(10))
 
 #And decoding
@@ -75,11 +75,9 @@ model.add(recurrent.LSTM(ACIDS, return_sequences=True))
 model.add(TimeDistributed(Dense(len(chars))))
 model.add(Activation('softmax'))
 
-model.load_weights("plop.h5")
+#model.load_weights("plop.h5")
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
-
-get_summary = K.function([model.layers[0].input], [model.layers[2].output])
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
@@ -96,11 +94,9 @@ for iteration in range(1, 100):
         row = X_val[np.array([ind])]
         preds = model.predict_classes(row, verbose=0)
         correct = ctable.decode(row[0])
-        intermediate = get_summary([row])[0]
         guess = ctable.decode(preds[0], calc_argmax=False)
         print('T', correct)
         print('P', guess)
-        print('I', intermediate)
         print('---')
 
     beep = [''.join(np.random.choice(list(chars))) for _ in range(10)]

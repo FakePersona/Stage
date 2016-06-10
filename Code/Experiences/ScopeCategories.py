@@ -108,7 +108,7 @@ for i in range(len(X)):
     guess = ctable.decode(preds[0], calc_argmax=False)
     Embed[i] = intermediate
 
-Alg = cluster.KMeans()
+Alg = cluster.KMeans(n_clusters=4)
 
 Alg.fit(Embed)
 Cluster_ind = Alg.predict(Embed)

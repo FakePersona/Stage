@@ -90,10 +90,10 @@ model.load_weights("20prot.h5")
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
 get_summary = K.function([model.layers[0].input], [model.layers[0].output])
-œ
+
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 800):
+for iteration in range(1, 600):
     print()
     print('-' * 50)
     print('Iteration', iteration)

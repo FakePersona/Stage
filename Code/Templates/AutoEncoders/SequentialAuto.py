@@ -61,7 +61,7 @@ X_val = np.zeros((len(test), 10, len(chars)), dtype=np.bool)
 for i, sentence in enumerate(test):
     X_val[i] = ctable.encode(sentence, maxlen=10)
 
-print("Creating model...")²
+print("Creating model...")
 #Recurrent encoder
 model = SimpleSeq2seq(input_dim=26, hidden_dim=encoding_dim,output_length=20, output_dim=26)
 

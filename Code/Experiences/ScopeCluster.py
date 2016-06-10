@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+from Bio import SeqIO
+
 import numpy as np
 
 from keras import backend as K
@@ -7,7 +9,7 @@ from keras import backend as K
 from sklearn import cluster
 
 from keras.models import Sequential
-from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense
+from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout
 
 
 class CharacterTable(object):
@@ -48,6 +50,8 @@ print("Generating data...")
 data = []
 test = []
 
+dataNames = []
+
 record = SeqIO.parse("astral-scopedom-seqres-gd-sel-gs-bib-40-2.06.fa", "fasta")
 
 for rec in record:
@@ -59,6 +63,7 @@ for rec in record:
         test.append([rec.seq[i] for i in range(20)])
     else:
         data.append([rec.seq[i] for i in range(20)])
+        dataNames.append(rec.name)
 
 X = np.zeros((len(data), 20, len(chars)), dtype=np.bool)
 
@@ -115,7 +120,7 @@ for i in range(len(Embed)):
 
 text = open('text.txt', 'w')
 
-for i in range(10000):
-    for c in Cluster[1][i]:
+for s in Cluster[0]:
+    for c in s:
         text.write(c)
     text.write('\n')

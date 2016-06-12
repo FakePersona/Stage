@@ -36,10 +36,10 @@ class CharacterTable(object):
         return ''.join(self.indices_char[x] for x in X)
 
 chars = 'abcdefghiklmnopqrstuvwxXyz'
-ctable = CharacterTable(chars, 200)
+ctable = CharacterTable(chars, 150)
 
 ACIDS = 26
-encoding_dim = 600
+encoding_dim = 300
 
 np.set_printoptions(threshold=np.nan)
 
@@ -53,30 +53,30 @@ record = SeqIO.parse("astral-scopedom-seqres-gd-sel-gs-bib-40-2.06.fa", "fasta")
 for rec in record:
     if len(test) > 1999:
         break
-    if len(rec.seq) > 199:
+    if len(rec.seq) > 149:
         continue
-    if len(data) > 7999:
-        test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(200 - len(rec.seq))])
+    if len(data) > 5999:
+        test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(150 - len(rec.seq))])
     else:
-        data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(200 - len(rec.seq))])
+        data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(150 - len(rec.seq))])
 
-X = np.zeros((len(data), 200, len(chars)), dtype=np.bool)
+X = np.zeros((len(data), 150, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(data):
-    X[i] = ctable.encode(sentence, maxlen=200)
+    X[i] = ctable.encode(sentence, maxlen=150)
 
-X_val = np.zeros((len(test), 200, len(chars)), dtype=np.bool)
+X_val = np.zeros((len(test), 150, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(test):
-    X_val[i] = ctable.encode(sentence, maxlen=200)
+    X_val[i] = ctable.encode(sentence, maxlen=150)
 
 print("Creating model...")
 model = Sequential()
 
 #Recurrent encoder
-model.add(recurrent.LSTM(encoding_dim, input_shape=(200, ACIDS)))
+model.add(recurrent.LSTM(encoding_dim, input_shape=(150, ACIDS)))
 model.add(Dropout(0.2))
-model.add(RepeatVector(200))
+model.add(RepeatVector(150))
 
 #And decoding
 model.add(recurrent.LSTM(ACIDS, return_sequences=True))
@@ -110,9 +110,9 @@ for iteration in range(1, 10):
         print('---')
 
     #Random test
-    beep = [''.join(np.random.choice(list(chars))) for _ in range(200)]
-    row = np.zeros((len(test), 200, len(chars)), dtype=np.bool)
-    row[0] = ctable.encode(beep, maxlen=200)
+    beep = [''.join(np.random.choice(list(chars))) for _ in range(150)]
+    row = np.zeros((len(test), 150, len(chars)), dtype=np.bool)
+    row[0] = ctable.encode(beep, maxlen=150)
     preds = model.predict_classes(row, verbose=0)
     correct = ctable.decode(row[0])
     guess = ctable.decode(preds[0], calc_argmax=False)

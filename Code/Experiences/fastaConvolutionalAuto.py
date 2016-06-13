@@ -5,7 +5,7 @@ import numpy as np
 from keras import backend as K
 
 from keras.models import Sequential
-from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout, Convolution1D
+from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout, Convolution1D, Flatten
 
 from Bio import SeqIO
 
@@ -39,7 +39,7 @@ chars = 'abcdefghiklmnopqrstuvwxXyz'
 ctable = CharacterTable(chars, 150)
 
 ACIDS = 26
-encoding_dim = 300
+encoding_dim = 500
 
 np.set_printoptions(threshold=np.nan)
 
@@ -79,31 +79,18 @@ model.add(Convolution1D(30, 5, activation='relu', input_shape=(150, ACIDS)))
 model.add(Dropout(0.2))
 
 model.add(Convolution1D(10, 2, activation='relu'))
-model.add(Dropout(0.2))
+model.add(Dropout(0.1))
 
 model.add(Convolution1D(13, 2, activation='relu'))
-model.add(Dropout(0.2))
+model.add(Dropout(0.1))
 
 model.add(Convolution1D(3, 2, activation='relu'))
-model.add(Dropout(0.2))
+model.add(Dropout(0.1))
 
 model.add(Convolution1D(6, 2, activation='relu'))
 model.add(Dropout(0.2))
 
-model.add(Convolution1D(6, 2, activation='relu'))
-model.add(Dropout(0.2))
-
-model.add(Convolution1D(7, 2, activation='relu'))
-model.add(Dropout(0.2))
-
-model.add(Convolution1D(3, 2, activation='relu'))
-model.add(Dropout(0.2))
-
-model.add(Convolution1D(3, 2, activation='relu'))
-model.add(Dropout(0.2))
-
-model.add(Convolution1D(3, 2, activation='relu'))
-model.add(Dropout(0.2))
+model.add(Flatten())
 
 model.add(Dense(encoding_dim))
 
@@ -116,13 +103,13 @@ model.add(recurrent.LSTM(ACIDS, return_sequences=True))
 model.add(TimeDistributed(Dense(len(chars))))
 model.add(Activation('softmax'))
 
-#model.load_weights("20prot_pad.h5")
+model.load_weights("20prot_pad_conv.h5")
 
-model.compile(optimizer='rmsprop', loss='binary_crossentropy')
+model.compile(optimizer='adagrad', loss='binary_crossentropy')
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 10):
+for iteration in range(1, 15):
     print()
     print('-' * 50)
     print('Iteration', iteration)

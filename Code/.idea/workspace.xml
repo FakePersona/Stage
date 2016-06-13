@@ -21,11 +21,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="fastaRecurrentAuto.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fastaRecurrentAuto.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Experiences/fastaRecurrentAuto.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="58" column="86" selection-start-line="58" selection-start-column="86" selection-end-line="58" selection-end-column="86" />
+            <state relative-caret-position="898">
+              <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fastaConvolutionalAuto.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Experiences/fastaConvolutionalAuto.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -60,8 +72,8 @@
       <file leaf-file-name="ConvolutionalAuto.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/ConvolutionalAuto.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1872">
-              <caret line="109" column="30" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
+            <state relative-caret-position="898">
+              <caret line="95" column="55" selection-start-line="95" selection-start-column="55" selection-end-line="95" selection-end-column="55" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -72,7 +84,7 @@
       <file leaf-file-name="RecurrentCluster.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/RecurrentCluster.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1332">
+            <state relative-caret-position="1314">
               <caret line="82" column="65" selection-start-line="82" selection-start-column="65" selection-end-line="82" selection-end-column="65" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
@@ -119,11 +131,12 @@
       <list>
         <option value="$PROJECT_DIR$/Templates/AutoEncoders/SuperEncoder.py" />
         <option value="$PROJECT_DIR$/Templates/AutoEncoders/DenoisingRecurrentAuto.py" />
-        <option value="$PROJECT_DIR$/Templates/AutoEncoders/ConvolutionalAuto.py" />
         <option value="$PROJECT_DIR$/Templates/AutoEncoders/RecurrentCluster.py" />
         <option value="$PROJECT_DIR$/Templates/AutoEncoders/RecurrentAutoencoder.py" />
         <option value="$PROJECT_DIR$/Templates/AutoEncoders/SequentialAuto.py" />
         <option value="$PROJECT_DIR$/Experiences/fastaRecurrentAuto.py" />
+        <option value="$PROJECT_DIR$/Templates/AutoEncoders/ConvolutionalAuto.py" />
+        <option value="$PROJECT_DIR$/Experiences/fastaConvolutionalAuto.py" />
       </list>
     </option>
   </component>
@@ -219,7 +232,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/seq2seq/seq2seq" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -403,16 +416,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/DenoisingRecurrentAuto.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="53" column="92" selection-start-line="53" selection-start-column="92" selection-end-line="53" selection-end-column="92" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/SuperEncoder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="792">
@@ -863,19 +866,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/ConvolutionalAuto.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1872">
-          <caret line="109" column="30" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/RecurrentCluster.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1332">
+        <state relative-caret-position="1314">
           <caret line="82" column="65" selection-start-line="82" selection-start-column="65" selection-end-line="82" selection-end-column="65" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
@@ -905,8 +898,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Experiences/fastaRecurrentAuto.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="58" column="86" selection-start-line="58" selection-start-column="86" selection-end-line="58" selection-end-column="86" />
+        <state relative-caret-position="898">
+          <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Templates/AutoEncoders/ConvolutionalAuto.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="898">
+          <caret line="95" column="55" selection-start-line="95" selection-start-column="55" selection-end-line="95" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Experiences/fastaConvolutionalAuto.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

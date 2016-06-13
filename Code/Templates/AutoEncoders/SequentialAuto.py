@@ -5,7 +5,7 @@ import numpy as np
 from keras import backend as K
 
 from keras.models import Sequential
-from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense
+from keras.layers import recurrent, RepeatVector, Activation
 
 import seq2seq
 from seq2seq.models import SimpleSeq2seq
@@ -63,13 +63,13 @@ for i, sentence in enumerate(test):
 
 print("Creating model...")
 #Recurrent encoder
-model = SimpleSeq2seq(input_dim=26, hidden_dim=encoding_dim,output_length=20, output_dim=26)
+model = SimpleSeq2seq(input_dim=26, hidden_dim=encoding_dim,output_length=10, output_dim=26)
 
 #model.load_weights("plop.h5")
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
-get_summary = K.function([model.layers[0].input], [model.layers[2].output])
+#get_summary = K.function([model.layers[0].input], [model.layers[0].output])
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
@@ -86,11 +86,11 @@ for iteration in range(1, 100):
         row = X_val[np.array([ind])]
         preds = model.predict_classes(row, verbose=0)
         correct = ctable.decode(row[0])
-        intermediate = get_summary([row])[0]
+        #intermediate = get_summary([row])[0]
         guess = ctable.decode(preds[0])
         print('T', correct)
         print('P', guess)
-        print('I', intermediate)
+        #print('I', intermediate)
         print('---')
 
     beep = [''.join(np.random.choice(list(chars))) for _ in range(10)]

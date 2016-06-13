@@ -74,8 +74,13 @@ print("Creating model...")
 model = Sequential()
 
 #Recurrent encoder
-model.add(recurrent.LSTM(encoding_dim, input_shape=(150, ACIDS)))
-model.add(Dropout(0.2))
+model.add(recurrent.LSTM(encoding_dim, input_shape=(150, ACIDS), return_sequences=True))
+model.add(Dropout(0.1))
+model.add(recurrent.LSTM(encoding_dim, return_sequences=True))
+model.add(Dropout(0.1))
+model.add(recurrent.LSTM(encoding_dim))
+model.add(Dropout(0.1))
+
 model.add(RepeatVector(150))
 
 #And decoding
@@ -85,13 +90,13 @@ model.add(recurrent.LSTM(ACIDS, return_sequences=True))
 model.add(TimeDistributed(Dense(len(chars))))
 model.add(Activation('softmax'))
 
-model.load_weights("20prot_pad.h5")
+#model.load_weights("20prot_pad.h5")
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 10):
+for iteration in range(1, 4):
     print()
     print('-' * 50)
     print('Iteration', iteration)

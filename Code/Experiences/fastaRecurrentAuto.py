@@ -85,7 +85,7 @@ model.add(recurrent.LSTM(ACIDS, return_sequences=True))
 model.add(TimeDistributed(Dense(len(chars))))
 model.add(Activation('softmax'))
 
-#model.load_weights("20prot.h5")
+model.load_weights("20prot_pad.h5")
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 

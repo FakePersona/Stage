@@ -88,7 +88,7 @@ model.add(Convolution1D(3, 2, activation='relu'))
 model.add(Dropout(0.1))
 
 model.add(Convolution1D(6, 2, activation='relu'))
-model.add(Dropout(0.2))
+model.add(Dropout(0.1))
 
 model.add(Flatten())
 
@@ -103,13 +103,13 @@ model.add(recurrent.LSTM(ACIDS, return_sequences=True))
 model.add(TimeDistributed(Dense(len(chars))))
 model.add(Activation('softmax'))
 
-model.load_weights("20prot_pad_conv.h5")
+#model.load_weights("20prot_pad_conv.h5")
 
-model.compile(optimizer='adagrad', loss='binary_crossentropy')
+model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 15):
+for iteration in range(1, 200):
     print()
     print('-' * 50)
     print('Iteration', iteration)

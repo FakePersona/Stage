@@ -46,6 +46,8 @@ class AcidEmbedding(object):
                       [500, 500, 500, 500],
                       [-500, -500, -500, -500]]
 
+        self.embed = [[x/500 for x in X] for X in self.embed]
+
         self.char_indices = dict((c, i) for i, c in enumerate(self.chars))
         self.indices_char = dict((i, c) for i, c in enumerate(self.chars))
 
@@ -58,7 +60,7 @@ class AcidEmbedding(object):
 
 
     def decode(self, X):
-        prob = [[dist2(x, y) for y in self.embed] for x in X]
+        prob = [[-dist2(x, y) for y in self.embed] for x in X]
         prob = (np.array(prob)).argmax(axis=-1)
         return ''.join(self.indices_char[x] for x in prob)
 
@@ -100,7 +102,6 @@ for i, sentence in enumerate(test):
 print("Creating model...")
 model = Sequential()
 
-#Recurrent encoder
 #Convolutional encoder
 model.add(Convolution1D(30, 5, activation='relu', input_shape=(150, ACIDS)))
 model.add(Dropout(0.2))
@@ -126,13 +127,13 @@ model.add(RepeatVector(150))
 #And decoding
 model.add(recurrent.LSTM(ACIDS, return_sequences=True))
 
-#model.load_weights("20prot_pad_emb.h5")
+model.load_weights("20prot_pad_emb.h5")
 
 model.compile(optimizer='rmsprop', loss='mean_squared_error')
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 15):
+for iteration in range(1, 200):
     print()
     print('-' * 50)
     print('Iteration', iteration)
@@ -143,23 +144,11 @@ for iteration in range(1, 15):
     for i in range(10):
         ind = np.random.randint(0, len(X_val))
         row = X_val[np.array([ind])]
-        preds = model.predict_classes(row, verbose=0)
-        print(preds[0])
+        preds = model.predict(row, verbose=0)
         correct = ctable.decode(row[0])
         guess = ctable.decode(preds[0])
         print('T', correct)
         print('P', guess)
         print('---')
-
-    #Random test
-    beep = [''.join(np.random.choice(list(chars))) for _ in range(150)]
-    row = np.zeros((len(test), 150, len(chars)), dtype=np.bool)
-    row[0] = ctable.encode(beep, maxlen=150)
-    preds = model.predict_classes(row, verbose=0)
-    correct = ctable.decode(row[0])
-    guess = ctable.decode(preds[0])
-    print('T', correct)
-    print('P', guess)
-    print('---')
 
 model.save_weights("20prot_pad_emb.h5", overwrite=True)

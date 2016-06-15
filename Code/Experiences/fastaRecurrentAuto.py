@@ -48,40 +48,36 @@ print("Generating data...")
 data = []
 test = []
 
-record = SeqIO.parse("astral-scopedom-seqres-gd-sel-gs-bib-40-2.06.fa", "fasta")
+record = SeqIO.parse("bigFile.fa", "fasta")
 
 for rec in record:
     if len(test) > 1999:
         break
-    if len(rec.seq) > 149:
+    if len(rec.seq) > 100:
         continue
     if len(data) > 5999:
-        test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(150 - len(rec.seq))])
+        test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(100 - len(rec.seq))])
     else:
-        data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(150 - len(rec.seq))])
+        data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(100 - len(rec.seq))])
 
-X = np.zeros((len(data), 150, len(chars)), dtype=np.bool)
+X = np.zeros((len(data), 100, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(data):
-    X[i] = ctable.encode(sentence, maxlen=150)
+    X[i] = ctable.encode(sentence, maxlen=100)
 
-X_val = np.zeros((len(test), 150, len(chars)), dtype=np.bool)
+X_val = np.zeros((len(test), 100, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(test):
-    X_val[i] = ctable.encode(sentence, maxlen=150)
+    X_val[i] = ctable.encode(sentence, maxlen=100)
 
 print("Creating model...")
 model = Sequential()
 
 #Recurrent encoder
-model.add(recurrent.LSTM(encoding_dim, input_shape=(150, ACIDS), return_sequences=True))
-model.add(Dropout(0.1))
-model.add(recurrent.LSTM(encoding_dim, return_sequences=True))
-model.add(Dropout(0.1))
-model.add(recurrent.LSTM(encoding_dim))
-model.add(Dropout(0.1))
+model.add(recurrent.LSTM(encoding_dim, input_shape=(100, ACIDS), return_sequences=True, dropout_W=0.1, dropout_U=0.1))
+model.add(recurrent.LSTM(encoding_dim, dropout_W=0.1, dropout_U=0.1))
 
-model.add(RepeatVector(150))
+model.add(RepeatVector(100))
 
 #And decoding
 model.add(recurrent.LSTM(ACIDS, return_sequences=True))
@@ -96,7 +92,7 @@ model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 4):
+for iteration in range(1, 3):
     print()
     print('-' * 50)
     print('Iteration', iteration)
@@ -115,9 +111,9 @@ for iteration in range(1, 4):
         print('---')
 
     #Random test
-    beep = [''.join(np.random.choice(list(chars))) for _ in range(150)]
-    row = np.zeros((len(test), 150, len(chars)), dtype=np.bool)
-    row[0] = ctable.encode(beep, maxlen=150)
+    beep = [''.join(np.random.choice(list(chars))) for _ in range(100)]
+    row = np.zeros((len(test), 100, len(chars)), dtype=np.bool)
+    row[0] = ctable.encode(beep, maxlen=100)
     preds = model.predict_classes(row, verbose=0)
     correct = ctable.decode(row[0])
     guess = ctable.decode(preds[0], calc_argmax=False)

@@ -68,7 +68,7 @@ chars = 'rndeqkstchmavgilfpwybzuxXo'
 ctable = AcidEmbedding(150)
 
 ACIDS = 4
-encoding_dim = 500
+encoding_dim = 600
 
 np.set_printoptions(threshold=np.nan)
 
@@ -127,13 +127,13 @@ model.add(RepeatVector(150))
 #And decoding
 model.add(recurrent.LSTM(ACIDS, return_sequences=True))
 
-model.load_weights("20prot_pad_emb.h5")
+#model.load_weights("20prot_pad_emb.h5")
 
 model.compile(optimizer='rmsprop', loss='mean_squared_error')
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 190):
+for iteration in range(1, 400):
     print()
     print('-' * 50)
     print('Iteration', iteration)

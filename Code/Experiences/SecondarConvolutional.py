@@ -5,7 +5,7 @@ import numpy as np
 from keras import backend as K
 
 from keras.models import Sequential
-from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout, Convolution1D, Flatten
+from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout, Flatten,Convolution1D
 
 from Bio import SeqIO
 
@@ -65,10 +65,10 @@ class AcidEmbedding(object):
         return ''.join(self.indices_char[x] for x in prob)
 
 chars = 'rndeqkstchmavgilfpwybzuxXo'
-ctable = AcidEmbedding(150)
+ctable = AcidEmbedding(100)
 
 ACIDS = 4
-encoding_dim = 600
+encoding_dim = 400
 
 np.set_printoptions(threshold=np.nan)
 
@@ -79,7 +79,12 @@ test = []
 
 record = SeqIO.parse("bigFile.fa", "fasta")
 
+Labels = [[1, 0, 0, 0] for _ in range(1, 4642)] + [[0, 1, 0, 0] for _ in range(4642, 11612)] + [[0, 0, 1, 0] for _ in range(11612, 19227)] + [[0, 0, 0, 1] for _ in range(19227, 25503)]
+
 rec_ind = -1
+
+lab_data = []
+lab_test = []
 
 for rec in record:
     rec_ind += 1
@@ -90,25 +95,26 @@ for rec in record:
     if len(rec.seq) > 100:
         continue
     if ((len(data) + len(test)) % 6) == 5:
-        test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(150 - len(rec.seq))])
+        test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(100 - len(rec.seq))])
+        lab_test.append(Labels[rec_ind])
     else:
-        data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(150 - len(rec.seq))])
-
-X = np.zeros((len(data), 150, ACIDS))
+        data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(100 - len(rec.seq))])
+        lab_data.append(Labels[rec_ind])
+        
+X = np.zeros((len(data), 100, 4))
 
 for i, sentence in enumerate(data):
-    X[i] = ctable.encode(sentence, maxlen=150)
+    X[i] = ctable.encode(sentence, maxlen=100)
 
-X_val = np.zeros((len(test), 150, ACIDS))
+X_val = np.zeros((len(test), 100, 4))
 
 for i, sentence in enumerate(test):
-    X_val[i] = ctable.encode(sentence, maxlen=150)
+    X_val[i] = ctable.encode(sentence, maxlen=100)
 
 print("Creating model...")
 model = Sequential()
 
-#Convolutional encoder
-model.add(Convolution1D(15, 5, activation='relu', input_shape=(150, ACIDS)))
+model.add(Convolution1D(30, 5, activation='relu', input_shape=(100, ACIDS)))
 model.add(Dropout(0.2))
 
 model.add(Convolution1D(10, 2, activation='relu'))
@@ -121,39 +127,36 @@ model.add(Convolution1D(3, 2, activation='relu'))
 model.add(Dropout(0.1))
 
 model.add(Convolution1D(6, 2, activation='relu'))
-model.add(Dropout(0.2))
+model.add(Dropout(0.1))
 
 model.add(Flatten())
 
-model.add(Dense(encoding_dim))
+model.add(Dense(4))
 
-model.add(RepeatVector(150))
+model.add(Activation('softmax'))
 
-#And decoding
-model.add(recurrent.LSTM(ACIDS, return_sequences=True))
+model.load_weights("SecondaryConv.h5")
 
-#model.load_weights("20prot_pad_emb.h5")
-
-model.compile(optimizer='rmsprop', loss='mean_squared_error')
+model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['accuracy'])
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 200):
+for iteration in range(1, 130):
     print()
     print('-' * 50)
     print('Iteration', iteration)
-    model.fit(X, X, batch_size=128, nb_epoch=1,
-              validation_data=(X_val, X_val))
+    model.fit(X, lab_data, batch_size=128, nb_epoch=1,
+              validation_data=(X_val, lab_test))
     ###
     # Select 10 samples from the validation set at random so we can visualize errors
     for i in range(10):
         ind = np.random.randint(0, len(X_val))
         row = X_val[np.array([ind])]
-        preds = model.predict(row, verbose=0)
-        correct = ctable.decode(row[0])
-        guess = ctable.decode(preds[0])
+        preds = model.predict_classes(row, verbose=0)
+        correct = np.array(lab_test[ind]).argmax()
+        guess = preds[0]
         print('T', correct)
         print('P', guess)
         print('---')
 
-model.save_weights("20prot_pad_emb.h5", overwrite=True)
+model.save_weights("SecondaryConv.h5", overwrite=True)

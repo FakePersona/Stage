@@ -77,14 +77,14 @@ print("Generating data...")
 data = []
 test = []
 
-record = SeqIO.parse("astral-scopedom-seqres-gd-sel-gs-bib-40-2.06.fa", "fasta")
+record = SeqIO.parse("bigFile.fa", "fasta")
 
 for rec in record:
     if len(test) > 1999:
         break
     if len(rec.seq) > 149:
         continue
-    if len(data) > 5999:
+    if len(data) > 13999:
         test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(150 - len(rec.seq))])
     else:
         data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(150 - len(rec.seq))])
@@ -103,7 +103,7 @@ print("Creating model...")
 model = Sequential()
 
 #Convolutional encoder
-model.add(Convolution1D(30, 5, activation='relu', input_shape=(150, ACIDS)))
+model.add(Convolution1D(15, 5, activation='relu', input_shape=(150, ACIDS)))
 model.add(Dropout(0.2))
 
 model.add(Convolution1D(10, 2, activation='relu'))
@@ -133,7 +133,7 @@ model.compile(optimizer='rmsprop', loss='mean_squared_error')
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 400):
+for iteration in range(1, 200):
     print()
     print('-' * 50)
     print('Iteration', iteration)

@@ -3,7 +3,12 @@ from __future__ import print_function
 import numpy as np
 
 from keras.models import Sequential
+<<<<<<< HEAD
 from keras.layers import recurrent, RepeatVector, Activation, Dense, TimeDistributed
+=======
+from keras.layers import recurrent, RepeatVector, Activation, Dense, TimeDistributedDense, Dropout
+
+>>>>>>> 80b1a6ea043fb9d287cff51f3f21e6ba7356ce42
 
 class CharacterTable(object):
     '''
@@ -20,12 +25,14 @@ class CharacterTable(object):
 
     def encode(self, C, maxlen=None):
         maxlen = maxlen if maxlen else self.maxlen
-        X = np.zeros(maxlen)
+        X = np.zeros((maxlen, len(self.chars)))
         for i, c in enumerate(C):
-            X[i] = self.char_indices[c]
+            X[i, self.char_indices[c]] = 1
         return X
 
     def decode(self, X, calc_argmax=True):
+        if calc_argmax:
+            X = X.argmax(axis=-1)
         return ''.join(self.indices_char[x] for x in X)
 
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -37,7 +44,7 @@ encoding_dim = 10
 print("Generating data...")
 data = [list('ABCDEFGHIJKLMNO') + [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(200000)]
 
-X = np.zeros((len(data), 20), dtype=np.bool)
+X = np.zeros((len(data), 20, 26), dtype=np.bool)
 
 for i, sentence in enumerate(data):
     X[i] = ctable.encode(sentence, maxlen=20)
@@ -45,7 +52,7 @@ for i, sentence in enumerate(data):
 
 test = [list('ABCDEFGHIJKLMNO') + [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(2000)]
 
-X_val = np.zeros((len(test), 20), dtype=np.bool)
+X_val = np.zeros((len(test), 20, 26), dtype=np.bool)
 
 for i, sentence in enumerate(test):
     X_val[i] = ctable.encode(sentence, maxlen=20)
@@ -54,12 +61,36 @@ print("Creating model...")
 
 model = Sequential()
 
+<<<<<<< HEAD
 model.add(TimeDistributed(Dense(encoding_dim, input_shape=(ACIDS,))))
 model.add(Activation('relu'))
 
 model.add(TimeDistributed(Dense(20)))
+=======
+model.add(TimeDistributedDense(encoding_dim, input_shape=(20, ACIDS)))
+model.add(Dropout(0.1))
+model.add(Activation('relu'))
 
-model.compile(optimizer='sgd', loss='binary_crossentropy')
+model.add(TimeDistributedDense(encoding_dim))
+model.add(Dropout(0.1))
+model.add(Activation('relu'))
+
+model.add(TimeDistributedDense(encoding_dim))
+model.add(Dropout(0.1))
+model.add(Activation('relu'))
+
+model.add(TimeDistributedDense(encoding_dim))
+model.add(Dropout(0.1))
+model.add(Activation('relu'))
+
+model.add(TimeDistributedDense(encoding_dim))
+model.add(Dropout(0.1))
+model.add(Activation('relu'))
+
+model.add(TimeDistributedDense(ACIDS))
+>>>>>>> 80b1a6ea043fb9d287cff51f3f21e6ba7356ce42
+
+model.compile(optimizer='sgd', loss='mse')
 
 
 print("Let's go!")

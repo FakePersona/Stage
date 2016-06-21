@@ -75,6 +75,32 @@
       \verb http://biorxiv.org/content/early/2015/11/16/031906
       \endverb
     \endentry
+    \entry{jian2013predicting}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{uniquename=0,hash=3b1e01dd050363c1124326b6d7f31aa9}{Jian-wei}{J\bibinithyphendelim w\bibinitperiod}{Liu}{L\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=0ddd0dc00daf1d00a901b7a6cf439d70}{Guang-hui}{G\bibinithyphendelim h\bibinitperiod}{Chi}{C\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=f13c62007077caebc4b5f1b1f9d9ea98}{Ze-yu}{Z\bibinithyphendelim y\bibinitperiod}{Liu}{L\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=26557486adfbec19378a3e06ce971132}{Yuan}{Y\bibinitperiod}{Liu}{L\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=fc7ee58ccc930667ca54fd30fe2feff4}{Hai-en}{H\bibinithyphendelim e\bibinitperiod}{Li}{L\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=19c0cee7d45059d526ba1dd16669fc7b}{Xiong-Lin}{X\bibinithyphendelim L\bibinitperiod}{Luo}{L\bibinitperiod}{}{}{}{}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{5d1780897eae91dafd15422ef49ea7bf}
+      \strng{fullhash}{94b6cdf0448b98502869310c9b6a94ae}
+      \field{sortinit}{J}
+      \field{sortinithash}{ec3950a647c092421b9fcca6d819504a}
+      \field{labelyear}{2013}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Control and Decision Conference (CCDC), 2013 25th Chinese}
+      \field{title}{Predicting protein structural classes with autoencoder neural networks}
+      \field{year}{2013}
+      \field{pages}{1894\bibrangedash 1899}
+      \range{pages}{6}
+    \endentry
     \entry{socher2011semi}{inproceedings}{}
       \name{author}{5}{}{%
         {{uniquename=0,hash=d5670b2600fea169724521e252d9d09d}{Socher}{S\bibinitperiod}{Richard}{R\bibinitperiod}{}{}{}{}}%

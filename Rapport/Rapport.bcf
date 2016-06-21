@@ -2246,6 +2246,7 @@
     <bcf:citekey order="5">Gupta031906</bcf:citekey>
     <bcf:citekey order="6">Vincent:2008:ECR:1390156.1390294</bcf:citekey>
     <bcf:citekey order="7">DBLP:journals/corr/ChoMGBSB14</bcf:citekey>
+    <bcf:citekey order="8">jian2013predicting</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nyt" type="entry" sortscheme="nyt">
   <bcf:sorting>

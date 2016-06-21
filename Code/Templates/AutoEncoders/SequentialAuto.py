@@ -8,7 +8,7 @@ from keras.models import Sequential
 from keras.layers import recurrent, RepeatVector, Activation
 
 import seq2seq
-from seq2seq.models import SimpleSeq2seq
+from seq2seq.models import AttentionSeq2seq
 
 class CharacterTable(object):
     '''
@@ -63,7 +63,7 @@ for i, sentence in enumerate(test):
 
 print("Creating model...")
 #Recurrent encoder
-model = SimpleSeq2seq(input_dim=26, hidden_dim=encoding_dim,output_length=10, output_dim=26)
+model = AttentionSeq2seq(input_dim=26, input_length=10, hidden_dim=encoding_dim, output_length=10, output_dim=26, depth=3)
 
 #model.load_weights("plop.h5")
 
@@ -84,7 +84,7 @@ for iteration in range(1, 100):
     for i in range(10):
         ind = np.random.randint(0, len(X_val))
         row = X_val[np.array([ind])]
-        preds = model.predict_classes(row, verbose=0)
+        preds = model.predict(row, verbose=0)
         correct = ctable.decode(row[0])
         #intermediate = get_summary([row])[0]
         guess = ctable.decode(preds[0])
@@ -93,12 +93,3 @@ for iteration in range(1, 100):
         #print('I', intermediate)
         print('---')
 
-    beep = [''.join(np.random.choice(list(chars))) for _ in range(10)]
-    row = np.zeros((len(test), 10, len(chars)), dtype=np.bool)
-    row[0] = ctable.encode(beep, maxlen=10)
-    preds = model.predict_classes(row, verbose=0)
-    correct = ctable.decode(row[0])
-    guess = ctable.decode(preds[0], calc_argmax=False)
-    print('T', correct)
-    print('P', guess)
-    print('---')

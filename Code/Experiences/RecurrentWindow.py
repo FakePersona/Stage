@@ -81,7 +81,7 @@ record = SeqIO.parse("bigFile.fa", "fasta")
 
 
 for rec in record:
-    if len(test) > 3999:
+    if len(test) > 9999:
         break
     if len(rec.seq) < 11:
         continue
@@ -90,7 +90,7 @@ for rec in record:
             test.append([rec.seq[k + i] for i in range(11)])
     else:
         for k in range(len(rec.seq) - 10):
-            test.append([rec.seq[k + i] for i in range(11)] )
+            data.append([rec.seq[k + i] for i in range(11)] )
 
 X = np.zeros((len(data), 11, 4))
 

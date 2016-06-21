@@ -79,12 +79,17 @@ test = []
 
 record = SeqIO.parse("bigFile.fa", "fasta")
 
+rec_ind = 0
+
 for rec in record:
+    rec_ind += 1
     if len(test) > 1999:
+        break
+    if rec_ind > 25502:
         break
     if len(rec.seq) > 100:
         continue
-    if len(data) > 5999:
+    if ((len(data) + len(test)) % 6) == 5:
         test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(100 - len(rec.seq))])
     else:
         data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(100 - len(rec.seq))])

@@ -5,7 +5,7 @@ import numpy as np
 from keras import backend as K
 
 from keras.models import Sequential
-from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout, Convolution1D, Flatten
+from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout
 
 from Bio import SeqIO
 
@@ -65,10 +65,10 @@ class AcidEmbedding(object):
         return ''.join(self.indices_char[x] for x in prob)
 
 chars = 'rndeqkstchmavgilfpwybzuxXo'
-ctable = AcidEmbedding(150)
+ctable = AcidEmbedding(100)
 
 ACIDS = 4
-encoding_dim = 600
+encoding_dim = 400
 
 np.set_printoptions(threshold=np.nan)
 
@@ -79,7 +79,7 @@ test = []
 
 record = SeqIO.parse("bigFile.fa", "fasta")
 
-rec_ind = -1
+rec_ind = 0
 
 for rec in record:
     rec_ind += 1
@@ -87,58 +87,42 @@ for rec in record:
         break
     if rec_ind > 25502:
         break
-    if len(rec.seq) > 150:
+    if len(rec.seq) > 100:
         continue
     if ((len(data) + len(test)) % 6) == 5:
-        test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(150 - len(rec.seq))])
+        test.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(100 - len(rec.seq))])
     else:
-        data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(150 - len(rec.seq))])
+        data.append([rec.seq[i] for i in range(len(rec.seq))] + ['o' for _ in range(100 - len(rec.seq))])
 
-X = np.zeros((len(data), 150, ACIDS))
+X = np.zeros((len(data), 100, 4))
 
 for i, sentence in enumerate(data):
-    X[i] = ctable.encode(sentence, maxlen=150)
+    X[i] = ctable.encode(sentence, maxlen=100)
 
-X_val = np.zeros((len(test), 150, ACIDS))
+X_val = np.zeros((len(test), 100, 4))
 
 for i, sentence in enumerate(test):
-    X_val[i] = ctable.encode(sentence, maxlen=150)
+    X_val[i] = ctable.encode(sentence, maxlen=100)
 
 print("Creating model...")
 model = Sequential()
 
-#Convolutional encoder
-model.add(Convolution1D(15, 5, activation='relu', input_shape=(150, ACIDS)))
-model.add(Dropout(0.2))
+#Recurrent encoder
+model.add(recurrent.LSTM(encoding_dim, input_shape=(100, ACIDS)))
+#model.add(recurrent.LSTM(encoding_dim, dropout_W=0.1, dropout_U=0.1))
 
-model.add(Convolution1D(10, 2, activation='relu'))
-model.add(Dropout(0.1))
-
-model.add(Convolution1D(13, 2, activation='relu'))
-model.add(Dropout(0.1))
-
-model.add(Convolution1D(3, 2, activation='relu'))
-model.add(Dropout(0.1))
-
-model.add(Convolution1D(6, 2, activation='relu'))
-model.add(Dropout(0.2))
-
-model.add(Flatten())
-
-model.add(Dense(encoding_dim))
-
-model.add(RepeatVector(150))
+model.add(RepeatVector(100))
 
 #And decoding
 model.add(recurrent.LSTM(ACIDS, return_sequences=True))
 
-model.load_weights("20prot_pad_emb.h5")
+model.load_weights("20prot_pad.h5")
 
-model.compile(optimizer='rmsprop', loss='mean_squared_error')
+model.compile(optimizer='rmsprop', loss='mse')
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 200):
+for iteration in range(1, 130):
     print()
     print('-' * 50)
     print('Iteration', iteration)
@@ -156,4 +140,4 @@ for iteration in range(1, 200):
         print('P', guess)
         print('---')
 
-model.save_weights("20prot_pad_emb.h5", overwrite=True)
+model.save_weights("Overfit.h5", overwrite=True)

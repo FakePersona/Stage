@@ -141,7 +141,7 @@ model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['accurac
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 130):
+for iteration in range(1, 500):
     print()
     print('-' * 50)
     print('Iteration', iteration)

@@ -121,11 +121,13 @@ model.add(Dense(4))
 
 model.add(Activation('softmax'))
 
+model.load_weights("SecondaryRec.h5")
+
 model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['accuracy'])
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 130):
+for iteration in range(1, 30):
     print()
     print('-' * 50)
     print('Iteration', iteration)
@@ -143,4 +145,4 @@ for iteration in range(1, 130):
         print('P', guess)
         print('---')
 
-model.save_weights("SecondaryConv.h5", overwrite=True)
+model.save_weights("SecondaryRec.h5", overwrite=True)

@@ -2,8 +2,13 @@ from __future__ import print_function
 
 import numpy as np
 
+from keras import backend as K
+
 from keras.models import Sequential
-from keras.layers import recurrent, RepeatVector, Activation, Dense, TimeDistributed
+from keras.layers import recurrent, RepeatVector, Activation
+
+import seq2seq
+from seq2seq.models import SimpleSeq2seq
 
 class CharacterTable(object):
     '''
@@ -20,51 +25,55 @@ class CharacterTable(object):
 
     def encode(self, C, maxlen=None):
         maxlen = maxlen if maxlen else self.maxlen
-        X = np.zeros(maxlen)
+        X = np.zeros((maxlen, len(self.chars)))
         for i, c in enumerate(C):
-            X[i] = self.char_indices[c]
+            X[i, self.char_indices[c]] = 1
         return X
 
     def decode(self, X, calc_argmax=True):
+        if calc_argmax:
+            X = X.argmax(axis=-1)
         return ''.join(self.indices_char[x] for x in X)
 
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-ctable = CharacterTable(chars, 20)
+ctable = CharacterTable(chars, 10)
 
 ACIDS = 26
-encoding_dim = 10
+encoding_dim = 20
+
+np.set_printoptions(threshold=np.nan)
 
 print("Generating data...")
-data = [list('ABCDEFGHIJKLMNO') + [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(200000)]
 
-X = np.zeros((len(data), 20), dtype=np.bool)
+data = [2 * [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(200000)]
+
+
+X = np.zeros((len(data), 10, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(data):
-    X[i] = ctable.encode(sentence, maxlen=20)
+    X[i] = ctable.encode(sentence, maxlen=10)
 
 
-test = [list('ABCDEFGHIJKLMNO') + [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(2000)]
+test = [2 * [''.join(np.random.choice(list(chars))) for _ in range(5)] for _ in range(2000)]
 
-X_val = np.zeros((len(test), 20), dtype=np.bool)
+X_val = np.zeros((len(test), 10, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(test):
-    X_val[i] = ctable.encode(sentence, maxlen=20)
+    X_val[i] = ctable.encode(sentence, maxlen=10)
 
 print("Creating model...")
+#Recurrent encoder
+model = SimpleSeq2seq(input_dim=26, hidden_dim=encoding_dim,output_length=10, output_dim=26)
 
-model = Sequential()
+#model.load_weights("plop.h5")
 
-model.add(TimeDistributed(Dense(encoding_dim, input_shape=(ACIDS,))))
-model.add(Activation('relu'))
+model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
-model.add(TimeDistributed(Dense(20)))
-
-model.compile(optimizer='sgd', loss='binary_crossentropy')
-
+#get_summary = K.function([model.layers[0].input], [model.layers[0].output])
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 200):
+for iteration in range(1, 100):
     print()
     print('-' * 50)
     print('Iteration', iteration)
@@ -77,9 +86,19 @@ for iteration in range(1, 200):
         row = X_val[np.array([ind])]
         preds = model.predict_classes(row, verbose=0)
         correct = ctable.decode(row[0])
-        guess = ctable.decode(preds[0], calc_argmax=False)
+        #intermediate = get_summary([row])[0]
+        guess = ctable.decode(preds[0])
         print('T', correct)
         print('P', guess)
+        #print('I', intermediate)
         print('---')
 
-
+    beep = [''.join(np.random.choice(list(chars))) for _ in range(10)]
+    row = np.zeros((len(test), 10, len(chars)), dtype=np.bool)
+    row[0] = ctable.encode(beep, maxlen=10)
+    preds = model.predict_classes(row, verbose=0)
+    correct = ctable.decode(row[0])
+    guess = ctable.decode(preds[0], calc_argmax=False)
+    print('T', correct)
+    print('P', guess)
+    print('---')

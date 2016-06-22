@@ -129,14 +129,13 @@ model.add(RepeatVector(11))
 
 #And decoding
 model.add(recurrent.LSTM(ACIDS, return_sequences=True))
-
-#model.load_weights("20prot_pad.h5")
+model.load_weights("ConvWind.h5")
 
 model.compile(optimizer='rmsprop', loss='mse')
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 300):
+for iteration in range(1, 100):
     print()
     print('-' * 50)
     print('Iteration', iteration)

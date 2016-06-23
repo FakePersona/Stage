@@ -1,14 +1,14 @@
 [0] Config.pm:327> INFO - This is Biber 2.2
 [0] Config.pm:330> INFO - Logfile is 'Rapport.blg'
-[46] biber:286> INFO - === Wed Jun 22, 2016, 16:27:44
-[46] Biber.pm:334> INFO - Reading 'Rapport.bcf'
-[165] Biber.pm:677> INFO - Found 7 citekeys in bib section 0
-[186] Biber.pm:3054> INFO - Processing section 0
-[205] Biber.pm:3193> INFO - Looking for bibtex format file 'Biblio.bib' for section 0
-[208] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[45] biber:286> INFO - === Thu Jun 23, 2016, 17:31:56
+[45] Biber.pm:334> INFO - Reading 'Rapport.bcf'
+[162] Biber.pm:677> INFO - Found 13 citekeys in bib section 0
+[183] Biber.pm:3054> INFO - Processing section 0
+[204] Biber.pm:3193> INFO - Looking for bibtex format file 'Biblio.bib' for section 0
+[207] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
 [211] bibtex.pm:935> INFO - Found BibTeX data source 'Biblio.bib'
-[380] UCollate.pm:66> INFO - Overriding locale 'fr-FR' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[380] UCollate.pm:66> INFO - Overriding locale 'fr-FR' defaults 'variable = shifted' with 'variable = non-ignorable'
-[381] Biber.pm:2931> INFO - Sorting list 'nyt' of type 'entry' with scheme 'nyt' and locale 'fr-FR'
-[397] bbl.pm:505> INFO - Writing 'Rapport.bbl' with encoding 'UTF-8'
-[399] bbl.pm:596> INFO - Output to Rapport.bbl
+[635] UCollate.pm:66> INFO - Overriding locale 'fr-FR' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[635] UCollate.pm:66> INFO - Overriding locale 'fr-FR' defaults 'variable = shifted' with 'variable = non-ignorable'
+[635] Biber.pm:2931> INFO - Sorting list 'nyt' of type 'entry' with scheme 'nyt' and locale 'fr-FR'
+[671] bbl.pm:505> INFO - Writing 'Rapport.bbl' with encoding 'UTF-8'
+[677] bbl.pm:596> INFO - Output to Rapport.bbl

@@ -73,7 +73,10 @@
 \maketitle
 
 \begin{abstract}
-  
+  L'application des techniques d'apprentissage profond à des chaînes peptidiques
+  demeure un domaine peu exploré. Nous avons cherché à trouvé des
+  caractéristiques importante à l'aide d'auto-encodeurs et avons étudié la
+  possibilité d'utiliser des architecture profonde pour la classifictation
   \begin{keywords}
     Deep Learning; Protéines; Séquence
   \end{keywords}
@@ -82,9 +85,10 @@
 \section*{Introduction}
 
 La bonne compréhension des fonctions des protéines existantes est un enjeu
-important dans de nombreux domaines %Je peut avoir un exemple?
+important dans de nombreux domaines. %Je peut avoir un exemple?
 Cependant il est peu réaliste au vu des moyens actuels de procéder à l'étude
-détaillé de tous les mécanismes en jeu pour chaque protéine. Néanmoins, nous
+détaillée de tous les mécanismes en jeu pour chaque protéine en raison du coût
+élevé des manipulations nécessaires. Néanmoins, nous
 disposons d'un grand nombre de séquences peptidique de protéines, qui influent
 directement sur les fonctions d'une protéine.
 
@@ -97,7 +101,7 @@ profond à l'exception de quelques travaux
 sur l'expression des gènes (\cite{Gupta031906}).
 
 L'applications de techniques dévelloppées en langage naturel ou dans d'autres
-branches de la bioinformatiques permettent de faire des recoupements sémantiques,
+branches de la bioinformatique permettent de faire des recoupements sémantiques,
 de la classification ou même de la prédiction sur des chaînes de \og mots\fg ou
 d'acides aminés. De fait, il semble raisonnable de penser qu'une étude des
 protéines avec des techniques similaires devraient permettre de similaires
@@ -114,6 +118,11 @@ algorithmes d'apprentissages profonds entraînés.
 \section{Apprentissage profond?}
 
 \paragraph{Une technique d'apprentissage machine}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \includegraphics[width=0.45\textwidth]{Deep}
+  \caption{Réseau de neurones classique à gauche, Réseau profond à droite}
+\end{wrapfigure}
 
 Comme toutes les techniques d'apprentissage machine, l'apprentissage profond
 vise à entrainer un système pour qu'il résolve des situations sans que tous les
@@ -139,12 +148,15 @@ qui a déjà été appris
 \paragraph{Autoencodeur}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
-  \includegraphics[width=0.45\textwidth]{Autoencoder}
+  \includegraphics[width=0.40\textwidth]{Autoencoder}
   \caption{Auto-encodeur classique}
 \end{wrapfigure}
 
 
-Comment faire pour demander à une machine de s'entrainer par elle même sans
+Une grande problèmatique de l'apprentissage profond est le besoin d'accéder à de
+grandes bases de données pour pouvoir entrainer les réseaux. Si cette difficulté
+n'est plus d'actualité dans nombreux domaines, elle est indissociable de notre
+étude des protéines. Comment faire pour demander à une machine de s'entrainer par elle même sans
 qu'on lui dise quelle conclusion tirer à partir de son résultat? Une façon de
 faire consiste à lui demander de retrouver son entrée. Ainsi, on ``encode''
 l'information dans un premier temps, puis on la décode: c'est l'auto-encodeur.
@@ -194,7 +206,7 @@ ayant servi à l'entraînement de l'auto-encodeur.
 
 \subsection{Réseaux convolutifs}
 
-\paragraph{Il y a un motif caractéristique (feature) dans les images de chameaux}
+\paragraph{Il y a un motif caractéristique (feature) dans les images d'oiseaux}
 
 C'est probablement intéressant pour classifier des images d'animaux, mais de là
 à le repérer sur un pixel... Ce qu'on peut faire par contre, est \og
@@ -236,9 +248,14 @@ quoi que ce soit à l'image obtenue après transformation.
   \caption{Réseau convolutionnel LeNet5}
 \end{figure}
 
+Une architecture typique se constitue donc d'un enchaînement de couches de
+convolution et de pooling, avec une ou plusieurs couches \og classiques\fg
+permettant de tirer une conclusion sur les information récupérées. Une telle
+architecture est proposée dans \cite{lecun1998gradient} sous la forme du réseau LeNet5
+
 \subsection{Réseaux récurrents}
 
-\paragraph{Un unique neurone peut constituer un réseau profond!}
+\paragraph{Il est utile de se rappeler des mots précédents à la lecture d'une phrase}
 
 L'idée est que l'entrée est traitée comme une suite d'entrées:
 typiquement c'est le cas d'une phrase par exemple. Chaque mot est traité par la
@@ -269,7 +286,7 @@ gradient lors de la rétropropagation.
 
 Une architecture de couche dont le comportement naturel est de se rappeler de ce
 qui s'est passé avant est exposée dans . L'idée est qu'on a un état de
-cellule, un état caché et une entrée. A chaque passage dans la couche, on calcul
+cellule, un état caché et une entrée. A chaque passage dans la couche, on calcule
 quel degré d'information il faut retenir de l'état de la cellule en fonction de
 l'état caché et de l'entrée. Ensuite on calcule s'il faut ajouter de
 l'information à l'état de la cellule. Enfin, on fait le calcul de la sortie et
@@ -295,8 +312,10 @@ L'idée est d'utiliser un premier auto-encodeur pour servir d'encodeur: on ne
 récupére que sa sortie sur le dernier terme de la suite d'entrée. Cette sortie
 est de dimension finie et nous servira de résumé (qui compresse éventuellement
 l'information). Il suffit ensuite de passer ce résumé dans un autre
-auto-encodeur récurrent en récupérant ctte fois chaque sortie (qu'on encode
-ensuite en une lettre avec un réseau dense et un \texttt{softmax}).
+auto-encodeur récurrent en récupérant cette fois chaque sortie (qu'on encode
+ensuite en une lettre avec un réseau dense et un \texttt{softmax}). Dans
+l'article original, la sortie du décodeur au temps $t$ lui est aussi donné en
+entrée au temps $t+1$, mais ce n'est pas le cas dans notre étude.
 
 \subsection{Initialisation et optimisation des réseaux d'apprentissage profond}
 
@@ -318,12 +337,13 @@ non-supervisé.
 \paragraph{Rétropropagation}
 
 Nous disposons d'une fonction de score en fin de réseau. Notre but est de
-minimiser cette fonction en modifiant les paramètres interne du réseau (qui
+minimiser cette fonction en modifiant les paramètres internes du réseau (qui
 déterminent les transformations effectuées sur l'entrée.). Pour ce faire, on
 utilise typiquement le gradient de la fonction de coût. Cela peut se faire au
 travers de quelquechose d'aussi simple que la descente de gradient stochastique, mais cette
 dernière a de nombreux défauts. Dans cette article nous utiliserons les
-optimisations dites \texttt{adagrad} et \texttt{RMSProp}.
+optimisations dites \texttt{adagrad} (très efficace dans les réseaux
+convolutifs) et \texttt{RMSProp} (très efficace dans les réseaux récurrents).
 
 \paragraph{De la non linéarité}
 
@@ -341,12 +361,31 @@ Hinton a montré qu'il est plus judicieux d'utiliser une fonction de seuillage \
 
 \section{Travail réalisé}
 
+\subsection{Matériel}
+
+Nous avons effectué l'ensemble de nos travaux à l'aide librairies python.
+
+Pour ce qui est de l'aspect apprentissage profond, nous avons principalement
+utilisé \texttt{keras} (\cite{chollet2015keras}) qui est une libraire haut niveau
+permettant de manipuler facilement des couches d'apprentissage. Ce choix vient
+d'une part de la nature des problèmes étudiés qui nous mènent à tenter
+l'utilisation de plusieurs architectures (ce qui invalide des librairies comme
+Caffee pour C++ spécialisé en réseaux convolutifs) et de l'autre de la grande
+souplesse offerte par Keras. En effet, \texttt{keras} peut utiliser deux
+librairies bas niveau python (il est possible de choisir entre les deux): le
+grand classique \texttt{Theano} (\cite{2016arXiv160502688full}) et le plus récent
+\texttt{Tensor Flow} (\cite{tensorflow2015-whitepaper}) de Google.
+
+Pour ce qui est de la manipulation de séquence peptidiques à proprement parlé,
+nous avons utilisé des données de la base de donnée \texttt{SCOPe}
+(\cite{fox2014scope}) et la librairie python Biopython (\cite{Cock01062009})
+
 \subsection{Représentation des chaînes peptidiques}
 
 Ce qui a été fait à de maintes reprises par le passé est la représentation des
 protéines non pas comme chaines d'acides, mais comme un vecteur dépendant de
-différents paramètres. Ce paramètres vont de notions implistes comme le nombre
-d'occurence de chaque acides aminé dans la chaîne à des considérations beaucoup
+différents paramètres. Ces paramètres vont de notions simplistes comme le nombre
+d'occurence de chaque acide aminé dans la chaîne à des considérations beaucoup
 plus complexes comme l'étude des fonctions de la protéine.
 
 Notre travail s'est principalement basé sur l'étude de proteines en tant que
@@ -359,13 +398,13 @@ problème, nous nous sommes intéréssés à ce qui a été en traitement de lan
 naturels.
 
 Une représentation répandue, bien qu'assez simpliste consiste à créer un espace
-contenant autant de dimension qu'il y a d'acides aminés et représenter chaque
+contenant autant de dimensions qu'il y a d'acides aminés et représenter chaque
 acide aminé par un vecteur d'une base orthogonale de cet espace. Plus
 simplement, cela veut dire qu'on représente chaque acide par un vecteur ne
 contenant que des 0 et un 1. Cette représentation permet d'avoir des résultats,
 mais elle présente en langage naturel l'inconvénient d'engendrer une
-représentation dans l'espace très lacunaire, ce qui crée des espace inutilement
-grands. Ce problème est secondaire dans notre cas puisqu'il n'ya qu'une
+représentation dans l'espace très lacunaire, ce qui crée des espaces inutilement
+grands. Ce problème est secondaire dans notre cas puisqu'il n'y a qu'une
 vingtaine d'acides à considérer.
 
 Néanmoins, il est intéressant de remarquer que des outils ont été inventés en

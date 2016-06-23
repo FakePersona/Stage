@@ -6,14 +6,15 @@
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("fontenc" "T1") ("inputenc" "utf8") ("babel" "main=francais" "english") ("biblatex" "backend=biber" "style=authoryear-comp")))
    (add-to-list 'LaTeX-verbatim-environments-local "lstlisting")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
-   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
-   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "lstinline")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "lstinline")
    (TeX-run-style-hooks
     "latex2e"
+    "Autoencoder"
     "article"
     "art11"
     "a4wide"
@@ -28,7 +29,8 @@
     "url"
     "mathpazo"
     "biblatex"
-    "listings")
+    "listings"
+    "svg")
    (TeX-add-symbols
     "manual"
     "dbend"

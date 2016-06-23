@@ -11,6 +11,7 @@
 \usepackage{graphicx}%
 \usepackage{xspace}%
 \usepackage{float}
+\usepackage{wrapfig}
 
 \usepackage{url} \urlstyle{sf}%
 \DeclareUrlCommand\email{\urlstyle{sf}}%
@@ -37,6 +38,8 @@
 \newenvironment{attention}%
 {\description\item[\dbend]\sl}%
 {\enddescription}
+
+\graphicspath{{Figures/}}
 
 \usepackage{listings}%
 
@@ -135,6 +138,12 @@ qui a déjà été appris
 
 \paragraph{Autoencodeur}
 
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \includegraphics[width=0.45\textwidth]{Autoencoder}
+  \caption{Auto-encodeur classique}
+\end{wrapfigure}
+
+
 Comment faire pour demander à une machine de s'entrainer par elle même sans
 qu'on lui dise quelle conclusion tirer à partir de son résultat? Une façon de
 faire consiste à lui demander de retrouver son entrée. Ainsi, on ``encode''
@@ -221,6 +230,12 @@ neurones. Non seulement cela permet de réduire la taille de la représentation
 considérée, cela fait qu'une simple translation a moins de chance de changer
 quoi que ce soit à l'image obtenue après transformation.
 
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.8]{mylenet}
+  \caption{Réseau convolutionnel LeNet5}
+\end{figure}
+
 \subsection{Réseaux récurrents}
 
 \paragraph{Un unique neurone peut constituer un réseau profond!}
@@ -244,6 +259,12 @@ complétement relié classique avec une sortie et entrée supplémentaire
 représentant l'état caché, mais cela pose d'est problème d'évanouissement du
 gradient lors de la rétropropagation.
 
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.3]{Recurrent}
+  \caption{Réseau récurrent à gauche, forme dépliée temporellement à droite}
+\end{figure}
+
 \paragraph{Long Short-Term Memory (LSTM)}
 
 Une architecture de couche dont le comportement naturel est de se rappeler de ce
@@ -266,10 +287,6 @@ couche récurrente qui servirait alors de \og résumé\fg de ce qui s'est passé
 la lecture de la suite.
 
 \paragraph{Un auto-encodeur récurrent?}
-
-\begin{figure}
-  \includesvg{Figures/Autoencoder}
-\end{figure}
 
 Une architecture d'auto-encodeur profonde que nous avons particulièrement étudié
 (et qui fournit de bons résultats pour la détection de structures comme la copie

@@ -133,6 +133,7 @@ algorithmes d'apprentissages profonds entraînés.
     \caption{Réseau de neurones classique à gauche, Réseau profond à droite}
   \end{minipage}
 \end{figure}
+
 Comme toutes les techniques d'apprentissage machine, l'apprentissage profond
 vise à entrainer un système pour qu'il résolve des situations sans que tous les
 paramètres nécessaires à la résolution du problème n'aient été calculés par
@@ -207,12 +208,6 @@ Une partie de notre travail s'est focalisée sur l'étude de ces représentation
 intermédiaires et sur ce qu'elles nous apprennent sur les familles de protéines
 ayant servi à l'entraînement de l'auto-encodeur.
 
-\begin{wrapfigure}{R}{0.4\textwidth}
-  \includegraphics[width=0.35\textwidth]{Autoencoder}
-  \caption{Auto-encodeur classique}
-\end{wrapfigure}
-
-
 \subsection{Réseaux convolutifs}
 
 \paragraph{Il y a un motif caractéristique (feature) dans les images d'oiseaux}
@@ -285,10 +280,18 @@ complétement relié classique avec une sortie et entrée supplémentaire
 représentant l'état caché, mais cela pose d'est problème d'évanouissement du
 gradient lors de la rétropropagation.
 
-\begin{figure}
+\begin{figure}[!tbp]
   \centering
-  \includegraphics[scale=0.3]{Recurrent}
-  \caption{Réseau récurrent à gauche, forme dépliée temporellement à droite}
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{Recurrent}
+    \caption{Réseau récurrent à gauche, forme dépliée temporellement à droite}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{LSTM}
+    \caption{Exemple d'unité LSTM}
+  \end{minipage}
+
 \end{figure}
 
 \paragraph{Long Short-Term Memory (LSTM)}

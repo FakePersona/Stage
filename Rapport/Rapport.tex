@@ -84,12 +84,12 @@
 
 \section*{Introduction}
 
-La bonne compréhension des fonctions des protéines existantes est un enjeu
+La bonne compréhension des mécanismes régissant le fonctionnement des protéines existantes est un enjeu
 important dans de nombreux domaines. %Je peut avoir un exemple?
 Cependant il est peu réaliste au vu des moyens actuels de procéder à l'étude
 détaillée de tous les mécanismes en jeu pour chaque protéine en raison du coût
 élevé des manipulations nécessaires. Néanmoins, nous
-disposons d'un grand nombre de séquences peptidique de protéines, qui influent
+disposons d'un grand nombre de séquences peptidiques de protéines, qui influent
 directement sur les fonctions d'une protéine.
 
 Les techniques dites d'apprentissage profond ont permis de grand progrès dans de
@@ -115,15 +115,24 @@ d'un séquençage bruité, mais aussi sur l'étude de la possibilité de compren
 des mécanismes des protéines à partir des représentations intermédiaires acquises par les
 algorithmes d'apprentissages profonds entraînés.
 
+\newpage
+
 \section{Apprentissage profond?}
 
 \paragraph{Une technique d'apprentissage machine}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-  \includegraphics[width=0.45\textwidth]{Deep}
-  \caption{Réseau de neurones classique à gauche, Réseau profond à droite}
-\end{wrapfigure}
-
+\begin{figure}[!tbp]
+\centering  
+  \begin{minipage}[b]{0.3\textwidth}
+    \includegraphics[width=0.9\textwidth]{Neuron}
+    \caption{Exemple de neurone}
+  \end{minipage}
+\hfill
+  \begin{minipage}[b]{0.6\textwidth}
+    \includegraphics[width=\textwidth]{Deep}
+    \caption{Réseau de neurones classique à gauche, Réseau profond à droite}
+  \end{minipage}
+\end{figure}
 Comme toutes les techniques d'apprentissage machine, l'apprentissage profond
 vise à entrainer un système pour qu'il résolve des situations sans que tous les
 paramètres nécessaires à la résolution du problème n'aient été calculés par
@@ -146,12 +155,6 @@ qui a déjà été appris
 \subsection{Entrainement non supervisé}
 
 \paragraph{Autoencodeur}
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-  \includegraphics[width=0.40\textwidth]{Autoencoder}
-  \caption{Auto-encodeur classique}
-\end{wrapfigure}
-
 
 Une grande problèmatique de l'apprentissage profond est le besoin d'accéder à de
 grandes bases de données pour pouvoir entrainer les réseaux. Si cette difficulté
@@ -203,6 +206,12 @@ l'identité). Pour éviter cela on dispose de plusieurs moyens:
 Une partie de notre travail s'est focalisée sur l'étude de ces représentations
 intermédiaires et sur ce qu'elles nous apprennent sur les familles de protéines
 ayant servi à l'entraînement de l'auto-encodeur.
+
+\begin{wrapfigure}{R}{0.4\textwidth}
+  \includegraphics[width=0.35\textwidth]{Autoencoder}
+  \caption{Auto-encodeur classique}
+\end{wrapfigure}
+
 
 \subsection{Réseaux convolutifs}
 

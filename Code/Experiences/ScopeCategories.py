@@ -36,11 +36,11 @@ class CharacterTable(object):
             X = X.argmax(axis=-1)
         return ''.join(self.indices_char[x] for x in X)
 
-chars = 'abcdefghijklmnopqrstuvwxXy'
-ctable = CharacterTable(chars, 20)
+chars = 'rndeqkstchmavgilfpwybzuxXo'
+ctable = CharacterTable(chars, 11)
 
 ACIDS = 26
-encoding_dim = 50
+encoding_dim = 20
 
 np.set_printoptions(threshold=np.nan)
 
@@ -51,52 +51,58 @@ test = []
 
 dataNames = []
 
-record = SeqIO.parse("astral-scopedom-seqres-gd-sel-gs-bib-40-2.06.fa", "fasta")
+record = SeqIO.parse("bigFile.fa", "fasta")
 
+ind = 0
 for rec in record:
-    if len(test) > 1999:
+    ind +=1
+    if len(test) > 229999:
         break
-    if len(rec.seq) < 20:
-        continue
-    if len(data) > 9999:
-        test.append([rec.seq[i] for i in range(20)])
+    if ind > 25502:
+        break
+    if ((len(data) + len(test)) % 6) == 5:
+        for k in range(len(rec.seq)/3 - 10):
+            test.append([rec.seq[3 * k + i] for i in range(11)])
     else:
-        data.append([rec.seq[i] for i in range(20)])
-        dataNames.append(rec.name)
-        
+        for k in range(len(rec.seq)/3 - 10):
+            data.append([rec.seq[3 * k + i] for i in range(11)] )
+            dataNames.append(rec.name)     
 
-X = np.zeros((len(data), 20, len(chars)), dtype=np.bool)
+X = np.zeros((len(data), 11, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(data):
-    X[i] = ctable.encode(sentence, maxlen=20)
+    X[i] = ctable.encode(sentence, maxlen=11)
 
-X_val = np.zeros((len(test), 20, len(chars)), dtype=np.bool)
+X_val = np.zeros((len(test), 11, len(chars)), dtype=np.bool)
 
 for i, sentence in enumerate(test):
-    X_val[i] = ctable.encode(sentence, maxlen=20)
+    X_val[i] = ctable.encode(sentence, maxlen=11)
 
 print("Creating model...")
 model = Sequential()
 
 #Recurrent encoder
-model.add(recurrent.LSTM(encoding_dim, input_shape=(20, ACIDS)))
-model.add(Dropout(0.2))
-model.add(RepeatVector(20))
+model.add(recurrent.LSTM(encoding_dim, input_shape=(11, ACIDS), dropout_W=0.1, dropout_U=0.1))
+#model.add(recurrent.LSTM(encoding_dim, dropout_W=0.1, dropout_U=0.1))
+
+model.add(RepeatVector(11))
 
 #And decoding
 model.add(recurrent.LSTM(ACIDS, return_sequences=True))
 
-# For each of step of the output sequence, decide which character should be chosen
-model.add(TimeDistributed(Dense(len(chars))))
+model.add(TimeDistributed(Dense(ACIDS)))
+
 model.add(Activation('softmax'))
 
-model.load_weights("20prot.h5")
+model.load_weights("RecOne.h5")
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
 get_summary = K.function([model.layers[0].input], [model.layers[0].output])
 
 print("Let's go!")
+
+print(ind)
 
 Embed = [[0 for _ in range(encoding_dim)] for _ in range(len(X))]
 

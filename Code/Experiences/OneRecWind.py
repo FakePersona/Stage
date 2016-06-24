@@ -49,18 +49,19 @@ test = []
 
 record = SeqIO.parse("bigFile.fa", "fasta")
 
-
+ind = 0
 for rec in record:
-    if len(test) > 39999:
+    ind +=1
+    if len(test) > 229999:
         break
-    if len(rec.seq) < 11:
-        continue
+    if ind > 25502:
+        break
     if ((len(data) + len(test)) % 6) == 5:
-        for k in range(len(rec.seq) - 10):
-            test.append([rec.seq[k + i] for i in range(11)])
+        for k in range(len(rec.seq)/3 - 10):
+            test.append([rec.seq[3 * k + i] for i in range(11)])
     else:
-        for k in range(len(rec.seq) - 10):
-            data.append([rec.seq[k + i] for i in range(11)] )
+        for k in range(len(rec.seq)/3 - 10):
+            data.append([rec.seq[3 * k + i] for i in range(11)] )
 
 X = np.zeros((len(data), 11, 26))
 
@@ -88,13 +89,13 @@ model.add(TimeDistributed(Dense(ACIDS)))
 
 model.add(Activation('softmax'))
 
-#model.load_weights("RecWind.h5")
+model.load_weights("RecOne.h5")
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
 print("Let's go!")
 # Train the model each generation and show predictions against the validation dataset
-for iteration in range(1, 70):
+for iteration in range(1, 40):
     print()
     print('-' * 50)
     print('Iteration', iteration)

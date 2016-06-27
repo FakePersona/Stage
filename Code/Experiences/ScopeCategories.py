@@ -51,6 +51,8 @@ test = []
 
 dataNames = []
 
+occurences = []
+
 record = SeqIO.parse("bigFile.fa", "fasta")
 
 ind = 0
@@ -61,12 +63,13 @@ for rec in record:
     if ind > 25502:
         break
     if ((len(data) + len(test)) % 6) == 5:
-        for k in range(len(rec.seq)/3 - 10):
+        for k in range(len(rec.seq)//3 - 10):
             test.append([rec.seq[3 * k + i] for i in range(11)])
     else:
-        for k in range(len(rec.seq)/3 - 10):
+        for k in range(len(rec.seq)//3 - 10):
             data.append([rec.seq[3 * k + i] for i in range(11)] )
-            dataNames.append(rec.name)     
+            dataNames.append(rec.name)
+        occurences.append(len(rec.seq)//3 - 10)
 
 X = np.zeros((len(data), 11, len(chars)), dtype=np.bool)
 
@@ -98,11 +101,9 @@ model.load_weights("RecOne.h5")
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy')
 
-get_summary = K.function([model.layers[0].input], [model.layers[0].output])
+get_summary = K.function([model.layers[0].input, K.learning_phase()], [model.layers[0].output])
 
 print("Let's go!")
-
-print(ind)
 
 Embed = [[0 for _ in range(encoding_dim)] for _ in range(len(X))]
 
@@ -110,8 +111,7 @@ for i in range(len(X)):
     row = X[np.array([i])]
     preds = model.predict_classes(row, verbose=0)
     correct = ctable.decode(row[0])
-    intermediate = get_summary([row])[0][0]
-    guess = ctable.decode(preds[0], calc_argmax=False)
+    intermediate = get_summary([row, 0])[0][0]
     Embed[i] = intermediate
 
 Alg = cluster.KMeans(n_clusters=4)
@@ -124,9 +124,15 @@ Cluster = [[] for _ in range(8)]
 for i in range(len(Embed)):
     Cluster[Cluster_ind[i]].append(dataNames[i])
 
+Uniq = [Cluster[0][0]]
+
+for i in range(1,len(Cluster[0])):
+    if Cluster[0][i] != Cluster[0][i-1]:
+        Uniq.append(Cluster[0][i])
+
 text = open('Names.txt', 'w')
 
-for s in Cluster[0]:
+for s in Uniq:
     for c in s:
         text.write(c)
     text.write('\n')

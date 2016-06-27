@@ -1,6 +1,9 @@
 from __future__ import print_function
 
+import matplotlib.pyplot as plt
 import numpy as np
+
+import plotly.plotly as py
 
 from keras import backend as K
 
@@ -10,6 +13,8 @@ from Bio import SeqIO
 
 from keras.models import Sequential
 from keras.layers import recurrent, RepeatVector, Activation, TimeDistributed, Dense, Dropout
+
+# Hash table
 
 class CharacterTable(object):
     '''
@@ -36,6 +41,8 @@ class CharacterTable(object):
             X = X.argmax(axis=-1)
         return ''.join(self.indices_char[x] for x in X)
 
+# Initial parameters
+    
 chars = 'rndeqkstchmavgilfpwybzuxXo'
 ctable = CharacterTable(chars, 11)
 
@@ -43,6 +50,8 @@ ACIDS = 26
 encoding_dim = 20
 
 np.set_printoptions(threshold=np.nan)
+
+# Data Generating
 
 print("Generating data...")
 
@@ -54,6 +63,8 @@ dataNames = []
 occurences = []
 
 record = SeqIO.parse("bigFile.fa", "fasta")
+
+# Parsing file
 
 ind = 0
 for rec in record:
@@ -70,6 +81,18 @@ for rec in record:
             data.append([rec.seq[3 * k + i] for i in range(11)] )
             dataNames.append(rec.name)
         occurences.append(len(rec.seq)//3 - 10)
+
+# Indexing domain names
+
+UniqNames = [dataNames[0]]
+
+for i in range(1,len(dataNames)):
+    if dataNames[i] != dataNames[i-1]:
+        UniqNames.append(dataNames[i])
+
+nameInd = dict((c, i) for i, c in enumerate(UniqNames))
+
+# Encoding data
 
 X = np.zeros((len(data), 11, len(chars)), dtype=np.bool)
 
@@ -105,6 +128,8 @@ get_summary = K.function([model.layers[0].input, K.learning_phase()], [model.lay
 
 print("Let's go!")
 
+# Clustering
+
 Embed = [[0 for _ in range(encoding_dim)] for _ in range(len(X))]
 
 for i in range(len(X)):
@@ -124,12 +149,28 @@ Cluster = [[] for _ in range(8)]
 for i in range(len(Embed)):
     Cluster[Cluster_ind[i]].append(dataNames[i])
 
+# Processing clustered data
+    
 Uniq = [Cluster[0][0]]
 
 for i in range(1,len(Cluster[0])):
     if Cluster[0][i] != Cluster[0][i-1]:
         Uniq.append(Cluster[0][i])
 
+Representation = [0 for _ in UniqNames]
+
+for i in range(1,len(Cluster[0])):
+    Representation[nameInd[Cluster[0][i]]] += 1
+
+plt.hist(Representation)
+plt.title("Gaussian Histogram")
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+
+fig = plt.gcf()
+
+plot_url = py.plot_mpl(fig, filename='mpl-basic-histogram')
+        
 text = open('Names.txt', 'w')
 
 for s in Uniq:

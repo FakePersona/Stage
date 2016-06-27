@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.4.26)  24 JUN 2016 17:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.4.26)  27 JUN 2016 13:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -884,48 +884,48 @@ Underfull \hbox (badness 1043) in paragraph at lines 190--193
 sé par []\T1/ppl/m/sc/10.95 Vincent \T1/ppl/m/n/10.95 et al.
  []
 
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 224.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 214.
 
 (/usr/share/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 229.
- [3]
-<Figures/mylenet.png, id=24, 544.1931pt x 127.1952pt>
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 219.
+
+<Figures/mylenet.png, id=19, 544.1931pt x 127.1952pt>
 File: Figures/mylenet.png Graphic file (type png)
 
 <use Figures/mylenet.png>
-Package pdftex.def Info: Figures/mylenet.png used on input line 251.
+Package pdftex.def Info: Figures/mylenet.png used on input line 241.
 (pdftex.def)             Requested size: 435.35506pt x 101.75629pt.
-
+ [3]
 <Figures/Recurrent.png, id=25, 1092.08pt x 580.1675pt>
 File: Figures/Recurrent.png Graphic file (type png)
 
 <use Figures/Recurrent.png>
-Package pdftex.def Info: Figures/Recurrent.png used on input line 286.
+Package pdftex.def Info: Figures/Recurrent.png used on input line 276.
 (pdftex.def)             Requested size: 203.83417pt x 108.28539pt.
 
 <Figures/LSTM.png, id=26, 1056.94875pt x 747.79375pt>
 File: Figures/LSTM.png Graphic file (type png)
  <use Figures/LSTM.png>
-Package pdftex.def Info: Figures/LSTM.png used on input line 291.
+Package pdftex.def Info: Figures/LSTM.png used on input line 281.
 (pdftex.def)             Requested size: 226.48395pt x 160.23622pt.
 
-[4 <./Figures/mylenet.png>] [5 <./Figures/Recurrent.png> <./Figures/LSTM.png>]
-[6] [7] [8] [9] (./Rapport.aux)
+[4 <./Figures/mylenet.png> <./Figures/Recurrent.png> <./Figures/LSTM.png>]
+[5] [6] [7] [8] [9] [10] (./Rapport.aux)
 Package logreq Info: Writing requests to 'Rapport.run.xml'.
 \openout1 = `Rapport.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 12378 strings out of 493054
- 197023 string characters out of 6140586
- 631646 words of memory out of 5000000
- 15670 multiletter control sequences out of 15000+600000
+ 12387 strings out of 493054
+ 197193 string characters out of 6140586
+ 632733 words of memory out of 5000000
+ 15679 multiletter control sequences out of 15000+600000
  35349 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,8n,98p,1151b,1517s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,8n,98p,1151b,1518s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/t
 exmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
@@ -936,10 +936,10 @@ ublic/cm-super/sfsx1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/
 sfsx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></
 usr/share/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-dist
 /fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on Rapport.pdf (9 pages, 493612 bytes).
+Output written on Rapport.pdf (10 pages, 495599 bytes).
 PDF statistics:
- 87 PDF objects out of 1000 (max. 8388607)
- 55 compressed objects within 1 object stream
+ 90 PDF objects out of 1000 (max. 8388607)
+ 57 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

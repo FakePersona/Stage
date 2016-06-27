@@ -61,10 +61,10 @@ for rec in record:
     if ind > 25502:
         break
     if ((len(data) + len(test)) % 6) == 5:
-        for k in range(len(rec.seq)/3 - 10):
+        for k in range(len(rec.seq)//3 - 10):
             test.append([rec.seq[3 * k + i] for i in range(11)])
     else:
-        for k in range(len(rec.seq)/3 - 10):
+        for k in range(len(rec.seq)//3 - 10):
             data.append([rec.seq[3 * k + i] for i in range(11)] )
             dataNames.append(rec.name)     
 

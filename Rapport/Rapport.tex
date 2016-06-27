@@ -191,17 +191,7 @@ l'identité). Pour éviter cela on dispose de plusieurs moyens:
   ``deviner'' ce qu'il manque, ce qui permettrait par exemple de mettre en
   lumière des corrélations non évidentes à l'oeil nu.
 \item Poser des contraintes sur la représentation intermédiaire acquise
-\item Aléatoirement désactiver certains neurones, ce qui force le système à
-  introduire de la redondance (et donc à choisir ce qui est réellement
-  important). C'est une technique aussi employée dans d'autres réseaux neuronaux
-  pour éviter de spécialiser le réseau sur l'ensemble d'entraînement et non sur
-  le domaine où on veut l'appliquer. Il est raisonnable qu'un auto-encodeur
-  entrainé sur des familles de protéines gére mal les chaînes purement
-  aléatoires, mais il serait problèmatique que cet auto-encodeur n'arrive pas à
-  traiter des protéines proches des exemples d'entraînement mais n'en faisant
-  pas partie. En effet, si on veut catégoriser les pompiers, et que par hasard
-  tous ceux de l'exemple d'entraînement sont bruns, il y a un risque d'associer
-  pompier et brun.
+
 \end{itemize}
 
 Une partie de notre travail s'est focalisée sur l'étude de ces représentations
@@ -297,7 +287,7 @@ gradient lors de la rétropropagation.
 \paragraph{Long Short-Term Memory (LSTM)}
 
 Une architecture de couche dont le comportement naturel est de se rappeler de ce
-qui s'est passé avant est exposée dans . L'idée est qu'on a un état de
+qui s'est passé avant est exposée dans \cite{hochreiter1997long}. L'idée est qu'on a un état de
 cellule, un état caché et une entrée. A chaque passage dans la couche, on calcule
 quel degré d'information il faut retenir de l'état de la cellule en fonction de
 l'état caché et de l'entrée. Ensuite on calcule s'il faut ajouter de
@@ -338,13 +328,13 @@ auto-encodeurs les uns à la suite et d'aboutir à des situations permettant
 d'éviter de trop mauvais minima locaux. C'est d'ailleurs ce qui a motivé le
 second souffle du deep learning vers la fin des années 2000
 
-Néanmoins, des travaux plus récents ont montrés qu'il suffit d'utiliser des
-initialisation aléatoires bien choisies pour largement passer outre les problème
+Néanmoins, des travaux plus récents ont montré qu'il suffit d'utiliser des
+initialisations aléatoires bien choisies pour largement passer outre les problème
 de minima locaux quand l'ensemble d'apprentissage est de taille élevée: nous n'avons jamais besoin que d'une instance d'entraînement
 évitant les minima locaux. Nous avons utilisé dans ce stage l'initialisation
 proposée dans . Cependant, nous avons aussi dû travailler avec des jeux de
 données de taille faible, ce qui a nécéssité le passage par de l'apprentissage
-non-supervisé.
+non-supervisé pour les taches de classification où peu d'exemples labélisés existent.
 
 \paragraph{Rétropropagation}
 
@@ -363,13 +353,41 @@ En un sens, les réseaux neuronaux cherchent à observer les données \og sous u
 certain angle\fg qui permet de trouver des corrélations: cela permet de faire de
 la classification, de la reconstruction, voire de la prédiction. Néanmoins si on
 se borne à effectuer des opérations linéaires (sommes pondérées
-d'entrés, trnasformations affines) il est tout a fait possible de passer à coté
+d'entrés, transformations affines) il est tout a fait possible de passer à coté
 d'un regroupement intéressant des points (les fonction linéaire préservent
 notemment l'alignement ce qui peut se révéler être un grand problème). De fait,
 il y a toujours \og à la fin\fg d'une couche une fonction dite \og
 d'activation\fg qui opére une transformation non-linéaire sur la sortie.
 Traditionnellement, on applique une sigmoïde ou une tangente hyperbolique, mais
-Hinton a montré qu'il est plus judicieux d'utiliser une fonction de seuillage \texttt{ReLU}.
+Hinton a montré qu'il est plus judicieux d'utiliser une fonction de seuillage
+\texttt{ReLU} (Rectified Linear Unit).
+
+\paragraph{Eviter le sur-apprentissage}
+  
+On peut léatoirement désactiver certains neurones, ce qui force le système à
+ éviter de spécialiser le réseau sur l'ensemble d'entraînement et non sur
+le domaine où on veut l'appliquer (\cite{srivastava2014dropout}). Il est raisonnable qu'un réseau
+entrainé sur des familles de protéines gére mal les chaînes purement
+aléatoires, mais il serait problèmatique qu'il n'arrive pas à
+traiter des protéines proches des exemples d'entraînement mais n'en faisant
+pas partie. En effet, si on veut catégoriser les pompiers, et que par hasard
+tous ceux de l'exemple d'entraînement sont bruns, il y a un risque d'associer
+pompier et brun.
+
+L'idée est la suivante: s'il est autorisé de copier sur ses camarades à un
+examen, et qu'il est connu qu'un éléve aura 20 à l'épreuve, un comportement
+possible est de ne rien faire et simplement compter sur l'éléve qui travaille.
+Cela est problématique car on dépend alors uniquement du résultat de cet
+éléve/neurone, et la perception des choses qu'on a est fortement biaisée par ce
+que ce neurone sait. La solution adoptée revient à annoncer qu'un certain
+pourcentage de la classe sera malade le jour de l'examen, ce qui force tout le
+monde à apprendre.
+
+Il a néanmoins été montré dans \cite{gal2015theoretically} qu'une telle
+architecture est complètement inutile dans le cas des réseau récurrents.
+Néanmoins, il y est proposé d'effectuer un oubli dans la dépendance temporelle
+du réseau (c'est à dire au niveau de l'état caché) ce qui permet d'obtenir des
+résultats similaires à la technique précédente pour des réseaux classiques.
 
 \section{Travail réalisé}
 
